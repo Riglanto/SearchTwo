@@ -5,10 +5,21 @@ img {
   height: auto;
   display: block;
   margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#searchForm {
-  /*border: 3px solid green;*/
+#searchForm {}
+
+.resultsColumn {
+  float: left;
+  width: 50%;
+}
+
+.resultsColumn2 {
+  float: right;
 }
 
 .selectInput {
@@ -24,7 +35,7 @@ img {
 
 .searchInput {
   width: calc(50% - 85px);
-  background-color: #9dc7e1 ;
+  background-color: #9dc7e1;
   color: white;
   border: 5px solid #1e4862;
   border-left-style: none;
@@ -56,6 +67,8 @@ img {
   border: 3px solid red;
   width: 100px;
   height: 100px;
+  background-color: black;
+  position: relative;
 }
 
 .description {
