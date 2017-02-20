@@ -5,6 +5,7 @@ import './../rxjs-operators';
 
 import { Item } from './../item';
 import { SearchListService } from './../search-list.service';
+import { SharedService }			from './../shared.service';
 
 @Component({
   selector: 'app-search-list',
@@ -20,13 +21,14 @@ export class SearchListComponent implements OnInit {
   rightSeller: string;
   leftKeyword: string;
   rightKeyword: string;
+  lastSelected: Item;
 
   shops = [
     'ebay.de',
     'amazon.de'
   ];
 
-  constructor(private searchListService: SearchListService) {
+  constructor(private sharedService: SharedService, private searchListService: SearchListService) {
     this.shop = this.shops[0];
     this.leftKeyword = "Batman";
     this.rightKeyword = "Spiderman";
@@ -36,11 +38,23 @@ export class SearchListComponent implements OnInit {
   }
 
   searchLeftItems(seller: string): void {
-    this.searchListService.getItems(this.leftKeyword, seller).then(items => this.leftItems = items);
+    this.sharedService.loading = true;
+    this.searchListService.getItems(this.leftKeyword, seller).then(
+      items => {
+        this.leftItems = items;
+        this.sharedService.loading = false;
+      }
+    );
   }
 
   searchRightItems(seller: string): void {
-    this.searchListService.getItems(this.rightKeyword, seller).then(items => this.rightItems = items);
+    this.sharedService.loading = true;
+    this.searchListService.getItems(this.rightKeyword, seller).then(
+      items => {
+        this.rightItems = items;
+        this.sharedService.loading = false;
+      }
+    );
   }
 
   search(): void {
@@ -53,11 +67,20 @@ export class SearchListComponent implements OnInit {
   }
 
   onSelectLeftItem(item: Item): void {
+    this.selectDeselect(item);
     this.searchRightItems(item.seller);
   }
 
   onSelectRightItem(item: Item): void {
+    this.selectDeselect(item);
     this.searchLeftItems(item.seller);
+  }
+
+  selectDeselect(item: Item): void {
+    if(this.lastSelected)
+      this.lastSelected.selected = false;
+    item.selected = true;
+    this.lastSelected = item;
   }
 
 }

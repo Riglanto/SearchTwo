@@ -56,6 +56,7 @@ img {
 
 .items {
   list-style-type: none;
+  padding: 0;
 }
 
 .item {
@@ -67,7 +68,7 @@ img {
   border: 3px solid red;
   width: 100px;
   height: 100px;
-  background-color: black;
+  background-color: white;
   position: relative;
 }
 
@@ -75,6 +76,14 @@ img {
   height: 100px;
   background-color: #ebf4f9;
   border: 3px solid blue;
+}
+
+.description:hover {
+  background-color: #9dc7e1;
+}
+
+.selected {
+  background-color: #9dc7e1 !important;
 }
 
 .title {
@@ -88,58 +97,4 @@ img {
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 5px;
-}
-
-.selected {
-  background-color: #CFD8DC !important;
-  color: white;
-}
-
-.heroes {
-  margin: 0 0 2em 0;
-  list-style-type: none;
-  padding: 0;
-  width: 50em;
-}
-
-.heroes li {
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  margin: .5em;
-  padding: .3em 0;
-  height: 1.6em;
-  border-radius: 4px;
-}
-
-.heroes li:hover {
-  color: #607D8B;
-  background-color: #DDD;
-  left: .1em;
-}
-
-.heroes li.selected:hover {
-  background-color: #BBD8DC !important;
-  color: white;
-}
-
-.heroes .text {
-  position: relative;
-  top: -3px;
-}
-
-.heroes .badge {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
-  line-height: 1em;
-  position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.8em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
 }

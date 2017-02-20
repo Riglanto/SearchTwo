@@ -8,6 +8,7 @@ import { AppRoutingModule }     from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListService }			from './search-list.service';
+import { SharedService }			from './shared.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { SearchListService }			from './search-list.service';
     HttpModule,
 	AppRoutingModule
   ],
-  providers: [SearchListService],
+  providers: [SharedService, SearchListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

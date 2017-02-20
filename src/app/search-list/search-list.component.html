@@ -14,7 +14,7 @@
       <div class="thumbnail">
         <img src="{{item.galleryURL == null && 'app/images/image.png' || item.galleryURL}}">
       </div>
-      <div class="description">
+      <div class="description" [class.selected]="item.selected">
         <div class="title"> {{item.title}} </div>
         <div class="price"> {{item.currency}} {{item.price}} </div>
       </div>
@@ -27,7 +27,7 @@
       <div class="thumbnail">
         <img src="{{item.galleryURL == null && 'app/images/image.png' || item.galleryURL}}">
       </div>
-      <div class="description">
+      <div class="description" [class.selected]="item.selected">
         <div class="title"> {{item.title}} </div>
         <div class="price"> {{item.currency}} {{item.price}} </div>
       </div>
