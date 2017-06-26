@@ -8,13 +8,13 @@ import { Item } from './item';
 export class SearchListService {
 
   private serverUrl = 'https://searchtwo-backend.appspot-preview.com/items?';
-  private serverUrl2 = 'http://localhost:5555/items?';
+  private localUrl = 'http://localhost:5555/items?';
 
   constructor(private http: Http) { }
 
     getItems(keyword: string, seller: string): Promise<Item[]> {
     console.log('getItems' + keyword + seller);
-    var url = this.serverUrl;
+    var url = this.localUrl;
     if(keyword != '')
         url += 'keyword=' + keyword + '&';
     if(seller != '')
