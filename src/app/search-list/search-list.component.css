@@ -1,4 +1,36 @@
-img {
+#left {
+  border: 3px solid blue;
+}
+
+#center {
+  border: 3px solid red;
+}
+
+#right {
+  border: 3px solid blue;
+}
+
+.resultsColumn {
+  border: 3px solid green;
+}
+
+.item {
+  border: 3px solid blue;
+  height: 16vh;
+}
+
+.thumbnail-wrapper {
+  min-width: 15vh;
+}
+
+.thumbnail {
+  width: auto;
+  height: auto;
+  max-width: 15vh;
+  max-height: 15vh;
+}
+
+/*img {
   max-width: 100px;
   max-height: 100px;
   width: auto;
@@ -97,4 +129,4 @@ img {
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 5px;
-}
+}*/
