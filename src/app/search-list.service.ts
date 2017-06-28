@@ -8,7 +8,7 @@ import { Item } from './item';
 export class SearchListService {
 
   private serverUrl = 'https://searchtwo-backend.appspot-preview.com/items?';
-  private localUrl = 'http://localhost:5555/items?';
+  private localUrl = 'http://localhost:5000/items?';
 
   constructor(private http: Http) { }
 
