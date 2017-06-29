@@ -17,17 +17,19 @@
 .item {
   border: 3px solid blue;
   height: 16vh;
+  background: #fffff2;
 }
 
 .thumbnail-wrapper {
   min-width: 15vh;
+  min-height: 15vh;
 }
 
 .thumbnail {
   width: auto;
   height: auto;
-  max-width: 15vh;
-  max-height: 15vh;
+  max-width: 14vh;
+  max-height: 14vh;
 }
 
 /*img {

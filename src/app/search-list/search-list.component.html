@@ -26,17 +26,17 @@
         <h6>{{item.title}}</h6>
         <p class="text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
       </div>
-      <div class="thumbnail-wrapper">
-        <img class="thumbnail rounded mx-auto d-block" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
+      <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
+        <img class="thumbnail rounded align-self-center" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
       </div>
     </li>
   </ul>
   <ul class="list-unstyled resultsColumn col-12 col-md-6 col-lg-4">
-    <li class="item media" *ngFor="let item of rightItems" (click)="onSelectRightItem(item)">
-      <div class="thumbnail-wrapper">
-        <img class="thumbnail rounded mx-auto d-block" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
+    <li class="item media align-items-center" *ngFor="let item of rightItems" (click)="onSelectRightItem(item)">
+      <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
+        <img class="thumbnail rounded align-self-center" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
       </div>
-      <div class="media-body align-self-center">
+      <div class="media-body">
         <h6>{{item.title}}</h6>
         <p class="text-primary font-weight-bold">{{item.currency}} {{item.price}}</p>
       </div>
