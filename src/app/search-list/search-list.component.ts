@@ -14,7 +14,7 @@ import { SharedService } from './../shared.service';
 })
 export class SearchListComponent implements OnInit {
 
-  searchColumns: number = 2;
+  searchColumns: number = 3;
   shop: string;
   items: Item[][] = new Array(this.searchColumns);
   sellers: string[] = new Array(this.searchColumns);
@@ -86,8 +86,8 @@ export class SearchListComponent implements OnInit {
     if (!item.selected) {
       if (this.lastSelected[column]) {
         this.lastSelected[column].selected = false;
-        this.lastSelected[column] = item;
       }
+      this.lastSelected[column] = item;
       seller = item.seller;
     } else {
       this.lastSelected[column] = null;
