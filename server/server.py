@@ -20,7 +20,8 @@ def get_tasks():
     if 'seller' in request.values:
         url += '&itemFilter(0).name=Seller&itemFilter(0).value=' + request.values['seller']
     r = requests.get(url)
-    data = r.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
+    data = r.json()['findItemsAdvancedResponse'][0]['searchResult'][0]
+    data = data['item'] if 'item' in data else []
     parsed = []
     for element in data:
         parsed.append({
