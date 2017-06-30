@@ -8,8 +8,9 @@
         <select class="selectInput" id="shop" required [(ngModel)]="shop" name="shop">
       <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
     </select>
-        <input type="text" class="searchInput" id="leftKeyword" [(ngModel)]="leftKeyword" name="leftKeyword" required>
-        <input type="text" class="searchInput" id="rightKeyword" [(ngModel)]="rightKeyword" name="rightKeyword" required>
+        <span *ngFor="let column of searchColumnsList()">
+          <input type="text" class="searchInput" [(ngModel)]="keywords[column]" [name]="keywords[column]" [placeholder]="'Keyword #' + (column+1)" required>
+        </span>
         <button type="submit" class="searchButton">Search</button>
       </form>
     </div>
@@ -20,25 +21,14 @@
 </div>
 
 <div class="row justify-content-md-center">
-  <ul class="list-unstyled resultsColumn col-12 col-md-6 col-lg-4">
-    <li class="item media align-items-center" *ngFor="let item of leftItems" (click)="onSelectLeftItem(item)">
+  <ul *ngFor="let column of searchColumnsList()" class="list-unstyled resultsColumn col-12 col-md-6 col-lg-4">
+    <li *ngFor="let item of items[column]" class="item media align-items-center" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
       <div class="media-body">
         <h6>{{item.title}}</h6>
         <p class="text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
       </div>
       <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
         <img class="thumbnail rounded align-self-center" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
-      </div>
-    </li>
-  </ul>
-  <ul class="list-unstyled resultsColumn col-12 col-md-6 col-lg-4">
-    <li class="item media align-items-center" *ngFor="let item of rightItems" (click)="onSelectRightItem(item)">
-      <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
-        <img class="thumbnail rounded align-self-center" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
-      </div>
-      <div class="media-body">
-        <h6>{{item.title}}</h6>
-        <p class="text-primary font-weight-bold">{{item.currency}} {{item.price}}</p>
       </div>
     </li>
   </ul>

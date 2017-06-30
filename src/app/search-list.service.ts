@@ -26,8 +26,6 @@ export class SearchListService {
   }
 
   private handleError(error: any) {
-    //console.error('An error occurred', error);
-    // Promise.reject(error.message || error);
     Promise.resolve();
   }
 }

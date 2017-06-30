@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable }       from 'rxjs/Observable';
-import { Subject }          from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import './../rxjs-operators';
 
 import { Item } from './../item';
 import { SearchListService } from './../search-list.service';
-import { SharedService }			from './../shared.service';
+import { SharedService } from './../shared.service';
 
 @Component({
   selector: 'app-search-list',
@@ -14,14 +14,12 @@ import { SharedService }			from './../shared.service';
 })
 export class SearchListComponent implements OnInit {
 
+  searchColumns: number = 2;
   shop: string;
-  leftItems: Item[];
-  rightItems: Item[];
-  leftSeller: string;
-  rightSeller: string;
-  leftKeyword: string;
-  rightKeyword: string;
-  lastSelected: Item;
+  items: Item[][] = new Array(this.searchColumns);
+  sellers: string[] = new Array(this.searchColumns);
+  keywords: string[] = new Array(this.searchColumns);
+  lastSelected: Item[] = new Array(this.searchColumns);
 
   shops = [
     'ebay.de',
@@ -29,19 +27,21 @@ export class SearchListComponent implements OnInit {
   ];
 
   constructor(private sharedService: SharedService, private searchListService: SearchListService) {
-    this.shop = this.shops[0];
-    this.leftKeyword = "Batman";
-    this.rightKeyword = "Spiderman";
   }
 
   ngOnInit() {
+    this.shop = this.shops[0];
+    this.keywords[0] = "Batman";
+    this.keywords[1] = "Spiderman";
+    if (this.searchColumns > 2)
+      this.keywords[2] = "Superman";
   }
 
   searchLeftItems(seller: string): void {
     this.sharedService.loading = true;
-    this.searchListService.getItems(this.leftKeyword, seller).then(
+    this.searchListService.getItems(this.keywords[0], seller).then(
       items => {
-        this.leftItems = items;
+        this.items[0] = items;
         this.sharedService.loading = false;
       }
     );
@@ -49,38 +49,62 @@ export class SearchListComponent implements OnInit {
 
   searchRightItems(seller: string): void {
     this.sharedService.loading = true;
-    this.searchListService.getItems(this.rightKeyword, seller).then(
+    this.searchListService.getItems(this.keywords[1], seller).then(
       items => {
-        this.rightItems = items;
+        this.items[1] = items;
+        this.sharedService.loading = false;
+      }
+    );
+  }
+
+  searchItemsInColumn(column: number, seller = ''): void {
+    this.sharedService.loading = true;
+    this.searchListService.getItems(this.keywords[column], seller).then(
+      items => {
+        this.items[column] = items;
         this.sharedService.loading = false;
       }
     );
   }
 
   search(): void {
-    this.searchLeftItems('');
-    this.searchRightItems('');
+    for (let i = 0; i < this.searchColumns; i++) {
+      this.searchItemsInColumn(i);
+    }
   }
 
   getImage(url: string): string {
     return "app/images/image.png";
   }
 
-  onSelectLeftItem(item: Item): void {
-    this.selectDeselect(item);
-    this.searchRightItems(item.seller);
+  onSelectItemInColumn(column: number, item: Item) {
+    this.selectDeselect(column, item);
   }
 
-  onSelectRightItem(item: Item): void {
-    this.selectDeselect(item);
-    this.searchLeftItems(item.seller);
+  selectDeselect(column: number, item: Item): void {
+    var seller = '';
+    if (!item.selected) {
+      if (this.lastSelected[column]) {
+        this.lastSelected[column].selected = false;
+        this.lastSelected[column] = item;
+      }
+      seller = item.seller;
+    } else {
+      this.lastSelected[column] = null;
+    }
+    for (let i = 0; i < this.searchColumns; i++) {
+      if (i !== column)
+        this.searchItemsInColumn(i, seller);
+    }
+    item.selected = !item.selected;
   }
 
-  selectDeselect(item: Item): void {
-    if(this.lastSelected)
-      this.lastSelected.selected = false;
-    item.selected = true;
-    this.lastSelected = item;
+  searchColumnsList() {
+    var x: number[] = [];
+    for (let i = 0; i < this.searchColumns; i++) {
+      x.push(i);
+    }
+    return x;
   }
 
 }
