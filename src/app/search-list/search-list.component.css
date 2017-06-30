@@ -11,13 +11,34 @@
 }
 
 .resultsColumn {
-  border: 3px solid green;
+  padding: 0;
+  background: darkgray;
 }
 
 .item {
-  border: 3px solid blue;
   height: 16vh;
   background: #fffff2;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  position: relative;
+  padding: 10px;
+}
+
+.item:hover {
+  border: 2px solid #555555;
+  cursor: pointer;
+  right: 10px;
+  bottom: 10px;
+}
+
+.selected, .selected:hover {
+  border: 3px dashed;
+}
+
+.item:active {
+  border: 2px solid #green;
 }
 
 .thumbnail-wrapper {
@@ -31,6 +52,7 @@
   max-width: 14vh;
   max-height: 14vh;
 }
+
 
 /*img {
   max-width: 100px;

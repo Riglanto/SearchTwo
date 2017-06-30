@@ -5,5 +5,5 @@ export class Item {
   price: string;
   currency: string;
   galleryURL: string;
-  selected: boolean;
+  selected: boolean = false;
 }
