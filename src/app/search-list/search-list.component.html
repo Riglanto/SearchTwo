@@ -3,15 +3,16 @@
     left
   </div>
   <div id="center" class="col-xs-12 col-lg-8">
-    <form #form="ngForm" (ngSubmit)="search()">
-      <button type="button" (click)="searchColumns = searchColumns == 2 ? 3 : 2">-1+</button>
-      <select class="selectInput" id="shop" required [(ngModel)]="shop" name="shop">
-      <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
-    </select>
-      <span *ngFor="let column of searchColumnsList()">
-          <input type="text" class="searchInput" [(ngModel)]="keywords[column]" [name]="keywords[column]" [placeholder]="'Keyword #' + (column+1)" required>
+    <form #form="ngForm" (ngSubmit)="search(); hasSearched=true;">
+      <div class="input-group">
+        <select class="" id="shop" required [(ngModel)]="shop" name="shop">
+          <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
+        </select>
+        <input *ngFor="let column of searchColumnsList()" type="text" class="form-control" [(ngModel)]="keywords[column]" [name]="keywords[column]" [placeholder]="'Keyword #' + (column+1)" required>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-secondary">Search</button>
         </span>
-      <button type="submit" class="searchButton">Search</button>
+      </div>
     </form>
   </div>
   <div id="right" class="col-sm  hidden-md-down">
@@ -19,7 +20,7 @@
   </div>
 </div>
 
-<div class="row justify-content-md-center">
+<div *ngIf="hasSearched" class="row justify-content-md-center">
   <ul *ngFor="let column of searchColumnsList()" class="list-unstyled resultsColumn col-12 col-md-6 col-lg-4">
     <li *ngFor="let item of items[column]" class="item media align-items-center" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
       <div class="media-body">
@@ -32,3 +33,7 @@
     </li>
   </ul>
 </div>
+<span *ngIf="!hasSearched" class="text-center" name="hasSearched">
+  <p>Enter keywords for items you are looking for and hit Search!</p>
+  <p (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer">here</b> to search for 3 items!</p>
+</span>

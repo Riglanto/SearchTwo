@@ -20,6 +20,7 @@ export class SearchListComponent implements OnInit {
   sellers: string[] = new Array(this.searchColumns);
   keywords: string[] = new Array(this.searchColumns);
   lastSelected: Item[] = new Array(this.searchColumns);
+  hasSearched: boolean = false;
 
   shops = [
     'ebay.de',
@@ -35,6 +36,7 @@ export class SearchListComponent implements OnInit {
     this.keywords[1] = "Spiderman";
     if (this.searchColumns > 2)
       this.keywords[2] = "Superman";
+    this.searchColumns = 2;
   }
 
   searchLeftItems(seller: string): void {

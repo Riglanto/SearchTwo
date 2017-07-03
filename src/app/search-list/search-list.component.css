@@ -3,11 +3,11 @@
 }
 
 #center {
-  border: 3px solid red;
+  /*border: 3px solid red;*/
 }
 
 #right {
-  border: 3px solid blue;
+  /*border: 3px solid blue;*/
 }
 
 .resultsColumn {
@@ -15,8 +15,13 @@
   background: darkgray;
 }
 
+.media-body {
+  height: 16vh;
+}
+
 .item {
   height: 16vh;
+  border: 2px solid white;
   background: #fffff2;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
@@ -24,10 +29,11 @@
   transition: all 0.1s ease-in-out;
   position: relative;
   padding: 10px;
+  z-index: 10;
 }
 
 .item:hover {
-  border: 2px solid #555555;
+  border-color: #555555;
   cursor: pointer;
   right: 10px;
   bottom: 10px;
@@ -42,15 +48,14 @@
 }
 
 .thumbnail-wrapper {
-  min-width: 15vh;
-  min-height: 15vh;
+  height: 14vh;
 }
 
 .thumbnail {
   width: auto;
   height: auto;
-  max-width: 14vh;
-  max-height: 14vh;
+  max-width: 13vh;
+  max-height: 13vh;
 }
 
 
