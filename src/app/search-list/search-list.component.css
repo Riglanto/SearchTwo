@@ -58,6 +58,31 @@
   max-height: 13vh;
 }
 
+.hscroll {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.card-thumbnail-wrapper {
+  height: 14vh;
+  width: 14vh;
+}
+
+.card-thumbnail {
+  width: auto;
+  height: auto;
+  max-width: 13vh;
+  max-height: 13vh;
+}
+
+.card-block {
+  white-space: initial;
+}
+
+.card {
+  padding: 0;
+}
+
 
 /*img {
   max-width: 100px;

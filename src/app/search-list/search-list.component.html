@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div *ngIf="hasSearched" class="row justify-content-md-center">
+<div *ngIf="false && hasSearched" class="row justify-content-md-center">
   <ul *ngFor="let column of searchColumnsList()" class="list-unstyled resultsColumn col-12 col-md-6 col-lg-4">
     <li *ngFor="let item of items[column]" class="item media align-items-center" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
       <div class="media-body">
@@ -37,3 +37,39 @@
   <p>Enter keywords for items you are looking for and hit Search!</p>
   <p (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer">here</b> to search for 3 items!</p>
 </span>
+
+<div *ngIf="hasSearched">
+  <div *ngFor="let column of searchColumnsList()" class="card">
+    <div class="card-header" role="tab">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" [href]="'#collapse' + keywords[column]" aria-expanded="true">
+          {{keywords[column]}}
+        </a>
+      </h5>
+    </div>
+    <div [id]="'collapse' + keywords[column]" class="hscrollcollapse show" role="tabpanel">
+      <!-- <div class="container-fluid hscroll">
+        <div class="row flex-row flex-nowrap">
+          <div *ngFor="let item of items[column]" class="col-3">
+            <img class="card-img-top" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
+            <div class="card card-block">{{item.title}}</div>
+          </div>
+        </div>
+      </div> -->
+      <div class="container-fluid hscroll">
+        <div class="row flex-row flex-nowrap">
+          <div *ngFor="let item of items[column]" class="card col-2">
+            <div class="card-thumbnail-wrapper img-thumbnail d-inline-flex mx-auto d-block">
+              <img class="card-thumbnail card-img-top rounded align-self-center" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
+            </div>
+            <div class="card-block">
+              <h6 class="card-title">{{item.title}}</h6>
+              <p class="card-text text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
+              <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
