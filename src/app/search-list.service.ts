@@ -12,17 +12,30 @@ export class SearchListService {
 
   constructor(private http: Http) { }
 
-    getItems(keyword: string, seller: string): Promise<Item[]> {
+  getItems(keyword: string, seller: string): Promise<Item[]> {
     console.log('getItems' + keyword + seller);
     var url = this.localUrl;
-    if(keyword != '')
-        url += 'keyword=' + keyword + '&';
-    if(seller != '')
-        url += 'seller=' + seller;
+    if (keyword != '')
+      url += 'keyword=' + keyword + '&';
+    if (seller != '')
+      url += 'seller=' + seller;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json() as Item[])
-      .catch(this.handleError);
+      .catch(this.fakeService);
+  }
+
+  private fakeService(error: any) {
+    console.log('fakeService');
+    var items= [];
+    for(let i=0; i<10; i++) {
+      let item = new Item();
+      item.title = "Item #" + i;
+      item.price = i*i + '.' + i*10;
+      item.currency = 'USD';
+      items.push(item);
+    }
+    return Promise.resolve(items);
   }
 
   private handleError(error: any) {
