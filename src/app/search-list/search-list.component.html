@@ -20,8 +20,8 @@
   </div>
 </div>
 
-<div *ngIf="false && hasSearched" class="row justify-content-md-center">
-  <ul *ngFor="let column of searchColumnsList()" class="list-unstyled resultsColumn col-12 col-md-6 col-lg-4">
+<div *ngIf="hasSearched" class="row hidden-xs-down justify-content-md-center">
+  <ul *ngFor="let column of searchColumnsList()" class="list-unstyled resultsColumn col-12 col-sm-6 col-lg-4">
     <li *ngFor="let item of items[column]" class="item media align-items-center" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
       <div class="media-body">
         <h6>{{item.title}}</h6>
@@ -38,7 +38,7 @@
   <p (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer">here</b> to search for 3 items!</p>
 </span>
 
-<div *ngIf="hasSearched">
+<div *ngIf="hasSearched" class="hidden-sm-up" id="results-area">
   <div *ngFor="let column of searchColumnsList()" class="card">
     <div class="card-header" role="tab">
       <h5 class="mb-0">
@@ -57,10 +57,13 @@
         </div>
       </div> -->
       <div class="container-fluid hscroll">
-        <div class="row flex-row flex-nowrap">
-          <div *ngFor="let item of items[column]" class="card col-2">
-            <div class="card-thumbnail-wrapper img-thumbnail d-inline-flex mx-auto d-block">
-              <img class="card-thumbnail card-img-top rounded align-self-center" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
+        <div class="row row-wrapper flex-row flex-nowrap">
+          <!-- <div *ngFor="let item of items[column]" class="card col-2 col-6 col-md-3 col-lg-2"> -->
+          <div *ngFor="let item of items[column]" class="card card-wrapper" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
+            <!-- <div class="card-thumbnail-wrapper img-thumbnail d-inline-flex mx-auto d-block"> -->
+            <div class="card-img card-img-wrapper d-inline-flex" [style.background-image]="getBgImageStyle(item)">
+              <!-- <img class="card-img"> -->
+              <!-- <img class="card-img align-self-center" src="{{item.galleryURL == null && 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Vertical_velocity.jpg' || item.galleryURL}}"> -->
             </div>
             <div class="card-block">
               <h6 class="card-title">{{item.title}}</h6>

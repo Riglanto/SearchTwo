@@ -32,31 +32,11 @@ export class SearchListComponent implements OnInit {
 
   ngOnInit() {
     this.shop = this.shops[0];
-    this.keywords[0] = "Batman";
+    this.keywords[0] = "watch";
     this.keywords[1] = "Spiderman";
     if (this.searchColumns > 2)
       this.keywords[2] = "Superman";
     this.searchColumns = 2;
-  }
-
-  searchLeftItems(seller: string): void {
-    this.sharedService.loading = true;
-    this.searchListService.getItems(this.keywords[0], seller).then(
-      items => {
-        this.items[0] = items;
-        this.sharedService.loading = false;
-      }
-    );
-  }
-
-  searchRightItems(seller: string): void {
-    this.sharedService.loading = true;
-    this.searchListService.getItems(this.keywords[1], seller).then(
-      items => {
-        this.items[1] = items;
-        this.sharedService.loading = false;
-      }
-    );
   }
 
   searchItemsInColumn(column: number, seller = ''): void {
@@ -73,10 +53,12 @@ export class SearchListComponent implements OnInit {
     for (let i = 0; i < this.searchColumns; i++) {
       this.searchItemsInColumn(i);
     }
-  }
-
-  getImage(url: string): string {
-    return "app/images/image.png";
+    setTimeout(function() {
+      const element = document.querySelector("#results-area");
+      if (element) {
+        element.scrollIntoView();
+      }
+    }, 750);
   }
 
   onSelectItemInColumn(column: number, item: Item) {
@@ -109,4 +91,8 @@ export class SearchListComponent implements OnInit {
     return x;
   }
 
+  getBgImageStyle(item: Item) {
+    const bgImgUrl = item.galleryURL == null && 'assets/image.png' || item.galleryURL;
+    return `url(${bgImgUrl})`;
+  }
 }
