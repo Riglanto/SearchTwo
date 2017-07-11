@@ -10,6 +10,8 @@ import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListService }			from './search-list.service';
 import { SharedService }			from './shared.service';
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,8 @@ import { SharedService }			from './shared.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFontAwesomeModule
   ],
   providers: [SharedService, SearchListService],
   bootstrap: [AppComponent]

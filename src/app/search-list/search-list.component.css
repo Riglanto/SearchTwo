@@ -67,6 +67,7 @@
 .card-wrapper {
   margin: 0 5px 0 0;
   min-width: 45vw;
+  max-width: 45vw;
 }
 
 .card-img-wrapper {

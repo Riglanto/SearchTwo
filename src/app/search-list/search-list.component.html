@@ -10,12 +10,12 @@
         </select>
         <input *ngFor="let column of searchColumnsList()" type="text" class="form-control" [(ngModel)]="keywords[column]" [name]="keywords[column]" [placeholder]="'Keyword #' + (column+1)" required>
         <span class="input-group-btn">
-          <button type="submit" class="btn btn-secondary">Search</button>
+          <button type="submit" class="btn btn-secondary"><fa name="search"></fa></button>
         </span>
       </div>
     </form>
   </div>
-  <div id="right" class="col-sm  hidden-md-down">
+  <div id="right" class="col-sm hidden-md-down">
     right
   </div>
 </div>
