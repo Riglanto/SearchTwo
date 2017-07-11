@@ -25,9 +25,9 @@ def get_tasks():
     parsed = []
     for element in data:
         parsed.append({
-            'itemId': element.get('itemId'),
-            'title': element.get('title'),
-            'seller': element.get('sellerInfo', {})[0].get('sellerUserName'),
+            'itemId': element.get('itemId')[0],
+            'title': element.get('title')[0],
+            'seller': element.get('sellerInfo', {})[0].get('sellerUserName')[0],
             'price': element.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('__value__'),
             'currency': element.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('@currencyId'),
             'galleryURL': element.get('galleryURL'),
