@@ -40,12 +40,12 @@
 
 <div *ngIf="hasSearched" class="hidden-sm-up" id="results-area">
   <div *ngFor="let column of searchColumnsList()" class="card">
-    <div class="card-header" role="tab">
-      <h5 class="mb-0">
+    <div class="card-header results-header" role="tab">
+      <h6 class="mb-0">
         <a data-toggle="collapse" data-parent="#accordion" [href]="'#collapse' + keywords[column]" aria-expanded="true">
-          {{keywords[column]}}
+          {{labels[column]}} {{getSelectedLabel(column)}}
         </a>
-      </h5>
+      </h6>
     </div>
     <div [id]="'collapse' + keywords[column]" class="hscrollcollapse show" role="tabpanel">
       <!-- <div class="container-fluid hscroll">
@@ -66,7 +66,7 @@
               <!-- <img class="card-img align-self-center" src="{{item.galleryURL == null && 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Vertical_velocity.jpg' || item.galleryURL}}"> -->
             </div>
             <div class="card-block">
-              <h6 class="card-title">{{item.title}}</h6>
+              <h6 class="card-title">{{trimTitle(item.title)}}</h6>
               <p class="card-text text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
               <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
             </div>

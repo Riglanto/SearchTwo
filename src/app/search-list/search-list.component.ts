@@ -19,6 +19,7 @@ export class SearchListComponent implements OnInit {
   items: Item[][] = new Array(this.searchColumns);
   sellers: string[] = new Array(this.searchColumns);
   keywords: string[] = new Array(this.searchColumns);
+  labels: string[] = new Array(this.searchColumns);
   lastSelected: Item[] = new Array(this.searchColumns);
   hasSearched: boolean = false;
 
@@ -37,37 +38,41 @@ export class SearchListComponent implements OnInit {
     if (this.searchColumns > 2)
       this.keywords[2] = "Superman";
     this.searchColumns = 2;
-  }
-
-  searchItemsInColumn(column: number, seller = ''): void {
-    this.sharedService.loading = true;
-    this.searchListService.getItems(this.keywords[column], seller).then(
-      items => {
-        this.items[column] = items;
-        this.sharedService.loading = false;
-      }
-    );
-  }
-
-  search(): void {
-    for (let i = 0; i < this.searchColumns; i++) {
-      this.searchItemsInColumn(i);
+    for (let i = 0; i < this.searchColumns; i++)
+      this.items[i] = [];
     }
-    setTimeout(function() {
-      const element = document.querySelector("#results-area");
-      if (element) {
-        element.scrollIntoView();
+
+    searchItemsInColumn(column: number, seller = ''): void {
+      this.sharedService.loading = true;
+      this.items[column].length = 0;
+      this.searchListService.getItems(this.keywords[column], seller).then(
+        items => {
+          this.items[column] = items;
+          this.sharedService.loading = false;
+        }
+      );
+    }
+
+    search(): void {
+      for(let i = 0; i < this.searchColumns; i++) {
+        this.searchItemsInColumn(i);
       }
-    }, 750);
-  }
+    this.labels = this.keywords.slice(0);
+      setTimeout(function() {
+        const element = document.querySelector("#results-area");
+        if (element) {
+          element.scrollIntoView();
+        }
+      }, 750);
+    }
 
-  onSelectItemInColumn(column: number, item: Item) {
-    this.selectDeselect(column, item);
-  }
+    onSelectItemInColumn(column: number, item: Item) {
+      this.selectDeselect(column, item);
+    }
 
-  selectDeselect(column: number, item: Item): void {
-    var seller = '';
-    if (!item.selected) {
+    selectDeselect(column: number, item: Item): void {
+      var seller = '';
+      if(!item.selected) {
       if (this.lastSelected[column]) {
         this.lastSelected[column].selected = false;
       }
@@ -94,5 +99,13 @@ export class SearchListComponent implements OnInit {
   getBgImageStyle(item: Item) {
     const bgImgUrl = item.galleryURL == null && 'assets/image.png' || item.galleryURL;
     return `url(${bgImgUrl})`;
+  }
+
+  getSelectedLabel(column: number) {
+    return this.lastSelected[column] && ` : ${this.trimTitle(this.lastSelected[column].title)}`;
+  }
+
+  trimTitle(text: string) {
+    return text.length > 25 ? text.substring(0, 25) + "..." : text;
   }
 }
