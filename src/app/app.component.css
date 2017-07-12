@@ -8,11 +8,11 @@
   opacity: 0.5;
 }
 
-#header {
+header {
   border: 3px solid yellow;
 }
 
-#footer {
+footer {
   border: 3px solid yellow;
 }
 

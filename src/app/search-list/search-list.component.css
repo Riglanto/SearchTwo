@@ -3,13 +3,13 @@
 }
 
 #center {
-  /*border: 3px solid red;*/
   padding: 0;
 }
 
 #right {
   border: 3px solid blue;
 }
+
 .row {
   margin: 0;
 }
@@ -21,6 +21,7 @@
 
 .media-body {
   height: 16vh;
+  margin: 5px;
 }
 
 .item {
@@ -53,6 +54,7 @@
 
 .thumbnail-wrapper {
   height: 14vh;
+  width: 14vh;
 }
 
 .thumbnail {
@@ -66,6 +68,7 @@
   overflow-x: auto;
   white-space: nowrap;
   height: calc(50vh - 50px);
+  padding: 0;
 }
 
 .card-wrapper {
@@ -75,43 +78,13 @@
 }
 
 .card-img-wrapper {
-  /*height: 50%;*/
   height: 25vh;
-  /*background: gray;*/
-  /*display: block;
-  width: 100%;
-  position: relative;*/
-  /*height: 0;*/
-  /*padding: 56.25% 0 0 0;
-  overflow: hidden;*/
 }
 
 .card-img {
-  /*background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/ff/Vertical_velocity.jpg');*/
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  /*width: 100%;*/
-  /*max-width: 100%;
-  max-height: 100%;*/
-  /*width: 100%;*/
-  /*max-width: 125px;
-  max-height: 125px;*/
-  /*min-width: 100%;
-min-height: 100%;*/
-  /*position: absolute;
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;*/
-}
-
-#results-area {
-  /*height: 100vh;*/
 }
 
 .card-title {
@@ -128,105 +101,3 @@ min-height: 100%;*/
   overflow: hidden;
   white-space: nowrap;
 }
-
-
-/*img {
-  max-width: 100px;
-  max-height: 100px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin: auto;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#searchForm {}
-
-.resultsColumn {
-  float: left;
-  width: 50%;
-}
-
-.resultsColumn2 {
-  float: right;
-}
-
-.selectInput {
-  border: 5px solid #1e4862;
-  background-color: #3b8ec2;
-  color: white;
-  float: left;
-  border-top-left-radius: 2em;
-  border-bottom-left-radius: 2em;
-  height: 36px;
-  outline: 0;
-}
-
-.searchInput {
-  width: calc(50% - 85px);
-  background-color: #9dc7e1;
-  color: white;
-  border: 5px solid #1e4862;
-  border-left-style: none;
-  height: 25px;
-  float: left;
-}
-
-.searchButton {
-  background-color: #3b8ec2;
-  color: white;
-  border: 5px solid #1e4862;
-  border-left-style: none;
-  width: 55px;
-  height: 36px;
-  border-top-right-radius: 2em;
-  border-bottom-right-radius: 2em;
-}
-
-.items {
-  list-style-type: none;
-  padding: 0;
-}
-
-.item {
-  clear: both;
-}
-
-.thumbnail {
-  float: left;
-  border: 3px solid red;
-  width: 100px;
-  height: 100px;
-  background-color: white;
-  position: relative;
-}
-
-.description {
-  height: 100px;
-  background-color: #ebf4f9;
-  border: 3px solid blue;
-}
-
-.description:hover {
-  background-color: #9dc7e1;
-}
-
-.selected {
-  background-color: #9dc7e1 !important;
-}
-
-.title {
-  font-size: 1.2vw;
-  font-weight: bold;
-  color: #0654ba;
-}
-
-.price {
-  font-size: 120%;
-  font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}*/

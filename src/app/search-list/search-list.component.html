@@ -3,15 +3,18 @@
     left
   </div>
   <div id="center" class="col-xs-12 col-lg-8">
-    <form #form="ngForm" (ngSubmit)="search(); hasSearched=true;">
+    <form #searchForm="ngForm" (ngSubmit)="search(); hasSearched=true;">
       <div class="input-group">
-        <select class="" id="shop" required [(ngModel)]="shop" name="shop">
+        <!-- <select class="" id="shop" required [(ngModel)]="shop" name="shop">
           <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
-        </select>
-        <input *ngFor="let column of searchColumnsList()" type="text" class="form-control" [(ngModel)]="keywords[column]" [name]="keywords[column]" [placeholder]="'Keyword #' + (column+1)" required>
+        </select> -->
+        <input *ngFor="let column of searchColumnsList()" type="text" class="form-control" [(ngModel)]="keywords[column]" [name]="'keywords'+column" [placeholder]="'Keyword #' + (column+1)" required>
         <span class="input-group-btn">
-          <button type="submit" class="btn btn-secondary"><fa name="search"></fa></button>
+          <button type="submit" class="btn btn-primary" [disabled]="!searchForm.form.valid"><fa class="fa-lg" name="search"></fa></button>
         </span>
+      </div>
+      <div class="alert alert-danger" [hidden]="searchForm.form.valid">
+        All keywords are required
       </div>
     </form>
   </div>
@@ -28,7 +31,7 @@
         <p class="text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
       </div>
       <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
-        <img class="thumbnail rounded align-self-center" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
+        <img class="thumbnail rounded align-self-center mx-auto d-block" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
       </div>
     </li>
   </ul>
@@ -48,27 +51,14 @@
       </h6>
     </div>
     <div [id]="'collapse' + keywords[column]" class="hscrollcollapse show" role="tabpanel">
-      <!-- <div class="container-fluid hscroll">
-        <div class="row flex-row flex-nowrap">
-          <div *ngFor="let item of items[column]" class="col-3">
-            <img class="card-img-top" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
-            <div class="card card-block">{{item.title}}</div>
-          </div>
-        </div>
-      </div> -->
       <div class="container-fluid hscroll">
         <div class="row row-wrapper flex-row flex-nowrap">
-          <!-- <div *ngFor="let item of items[column]" class="card col-2 col-6 col-md-3 col-lg-2"> -->
           <div *ngFor="let item of items[column]" class="card card-wrapper" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
-            <!-- <div class="card-thumbnail-wrapper img-thumbnail d-inline-flex mx-auto d-block"> -->
             <div class="card-img card-img-wrapper d-inline-flex" [style.background-image]="getBgImageStyle(item)">
-              <!-- <img class="card-img"> -->
-              <!-- <img class="card-img align-self-center" src="{{item.galleryURL == null && 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Vertical_velocity.jpg' || item.galleryURL}}"> -->
             </div>
             <div class="card-block">
               <h6 class="card-title">{{trimTitle(item.title)}}</h6>
               <p class="card-text text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
-              <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
             </div>
           </div>
         </div>
