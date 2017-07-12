@@ -31,6 +31,7 @@ def get_tasks():
             'price': element.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('__value__'),
             'currency': element.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('@currencyId'),
             'galleryURL': element.get('galleryURL'),
+            'viewItemURL': element.get('viewItemURL')[0],
         })
 
     response = jsonify(parsed)

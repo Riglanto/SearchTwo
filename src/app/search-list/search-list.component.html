@@ -13,9 +13,9 @@
           <button type="submit" class="btn btn-primary" [disabled]="!searchForm.form.valid"><fa class="fa-lg" name="search"></fa></button>
         </span>
       </div>
-      <div class="alert alert-danger" [hidden]="searchForm.form.valid">
+      <!-- <div class="alert alert-danger" [hidden]="searchForm.form.valid">
         All keywords are required
-      </div>
+      </div> -->
     </form>
   </div>
   <div id="right" class="col-sm hidden-md-down">
@@ -27,8 +27,12 @@
   <ul *ngFor="let column of searchColumnsList()" class="list-unstyled resultsColumn col-12 col-sm-6 col-lg-4">
     <li *ngFor="let item of items[column]" class="item media align-items-center" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
       <div class="media-body">
-        <h6>{{item.title}}</h6>
+        <h6 class="item-title">{{item.title}}</h6>
         <p class="text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
+        <div class="text-right">
+          <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
+          <button type="button" (click)=" $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
+        </div>
       </div>
       <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
         <img class="thumbnail rounded align-self-center mx-auto d-block" src="{{item.galleryURL == null && 'assets/image.png' || item.galleryURL}}">
@@ -59,6 +63,8 @@
             <div class="card-block">
               <h6 class="card-title">{{trimTitle(item.title)}}</h6>
               <p class="card-text text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
+              <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
+              <button type="button" (click)=" $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
             </div>
           </div>
         </div>

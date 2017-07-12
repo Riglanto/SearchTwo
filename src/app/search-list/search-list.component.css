@@ -21,12 +21,12 @@
 
 .media-body {
   height: 16vh;
-  margin: 5px;
+  margin: 10px;
 }
 
 .item {
   height: 16vh;
-  border: 2px solid white;
+  border: 1.5px solid white;
   background: #fffff2;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
@@ -35,6 +35,10 @@
   position: relative;
   padding: 10px;
   z-index: 10;
+}
+
+.item-title {
+  height: 3.3em;
 }
 
 .item:hover {

@@ -108,4 +108,8 @@ export class SearchListComponent implements OnInit {
   trimTitle(text: string) {
     return text.length > 25 ? text.substring(0, 25) + "..." : text;
   }
+
+  navigateTo(url: string) {
+    window.open(url, "_blank");
+  }
 }
