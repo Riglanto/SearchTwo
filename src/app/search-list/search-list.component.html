@@ -31,7 +31,7 @@
         <p class="text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
         <div class="text-right">
           <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
-          <button type="button" (click)=" $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
+          <button type="button" (click)="$event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
         </div>
       </div>
       <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
@@ -40,9 +40,9 @@
     </li>
   </ul>
 </div>
-<span *ngIf="!hasSearched" class="text-center" name="hasSearched">
+<span *ngIf="!hasSearched" class="text-center">
   <p>Enter keywords for items you are looking for and hit Search!</p>
-  <p (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer">here</b> to search for 3 items!</p>
+  <p style="margin: 0;" (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer;">here</b> to search for 3 items!</p>
 </span>
 
 <div *ngIf="hasSearched" class="hidden-sm-up" id="results-area">
@@ -64,7 +64,7 @@
               <h6 class="card-title">{{trimTitle(item.title)}}</h6>
               <p class="card-text text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
               <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
-              <button type="button" (click)=" $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
+              <button type="button" (click)="$event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
             </div>
           </div>
         </div>

@@ -1,9 +1,11 @@
 <div *ngIf="sharedService.loading" class="overlay"></div>
-<div id="main" class="container-fluid">
+<div class="container-fluid">
   <header class="row">
     <h3>Searchtwo</h3>
   </header>
-  <app-search-list></app-search-list>
+  <main>
+    <app-search-list></app-search-list>
+  </main>
   <footer class="row">
     <a href="searchlist#header">Go to header</a>
   </footer>

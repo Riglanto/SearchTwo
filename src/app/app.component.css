@@ -12,6 +12,10 @@ header {
   border: 3px solid yellow;
 }
 
+main {
+  min-height: calc(100vh - 66px);
+}
+
 footer {
   border: 3px solid yellow;
 }
