@@ -25,15 +25,22 @@
 }
 
 .text-field {
-  border-right: 0;
-  padding-right: 0;
+  padding-right: 25px;
 }
 
-.clear-text{
+.text-field-group {
+  position: relative;
+}
+
+.clear-text {
   background: white;
-  color: #464a4c;
   width: 25px;
   padding: 0;
+  position: absolute;
+  z-index: 10;
+  cursor: pointer;
+  top: 12px;
+  right: 2px;
 }
 
 .item {

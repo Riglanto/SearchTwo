@@ -21,6 +21,7 @@ export class SearchListComponent implements OnInit {
   keywords: string[] = new Array(this.searchColumns);
   labels: string[] = new Array(this.searchColumns);
   lastSelected: Item[] = new Array(this.searchColumns);
+  isInputFocused: boolean[] = new Array(this.searchColumns);
   hasSearched: boolean = false;
 
   shops = [
@@ -39,6 +40,7 @@ export class SearchListComponent implements OnInit {
       this.keywords[2] = "Superman";
     for (let i = 0; i < this.searchColumns; i++)
       this.items[i] = [];
+    this.isInputFocused.fill(false);
     this.searchColumns = 2;
   }
 
@@ -115,5 +117,11 @@ export class SearchListComponent implements OnInit {
 
   clearKeyword(column: number) {
     this.keywords[column] = '';
+  }
+
+  addToCart(url: string) {
+    let cartButton = "isCartBtn_btn";
+    let cartLink = document.getElementById("cartButton").getAttribute("href");
+    this.navigateTo(cartLink);
   }
 }

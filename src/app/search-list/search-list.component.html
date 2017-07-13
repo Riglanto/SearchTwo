@@ -9,12 +9,9 @@
           <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
         </select> -->
 
-        <div *ngFor="let column of searchColumnsList()" class="input-group">
-          <input type="text" class="form-control text-field" [(ngModel)]="keywords[column]" [name]="'keywords'+column" [placeholder]="'Keyword #' + (column+1)" required>
-          <!-- <fa class="input-group-addon fa-fw" name="car"></fa> -->
-          <!-- <i class="fa fa-camera-retro" style="position: relative;"></i> //wzgledem parenta display albo pisiton -->
-          <!-- <span class="fa fa-home fa-fw"></span> -->
-          <span *ngIf="keywords[column].length > 0" class="input-group-addon clear-text"><i (click)="clearKeyword(column)" class="fa fa-times-circle-o fa-fw"></i></span>
+        <div *ngFor="let column of searchColumnsList()" class="input-group text-field-group">
+          <input type="text" class="form-control text-field" [(ngModel)]="keywords[column]" [name]="'keywords'+column" required [placeholder]="isInputFocused[column] ? '' : 'Keyword #' + (column+1)" (focus)="isInputFocused[column] = true" (blur)="isInputFocused[column] = false">
+          <i *ngIf="keywords[column].length > 0" (click)="clearKeyword(column)" class="fa fa-times-circle-o fa-fw clear-text"></i>
         </div>
         <span class="input-group-btn">
           <button type="submit" class="btn btn-primary" [disabled]="!searchForm.form.valid"><fa class="fa-lg" name="search"></fa></button>
