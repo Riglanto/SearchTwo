@@ -1,6 +1,7 @@
 import requests
 from flask import Flask, jsonify, make_response, request
 import configparser
+from lxml import html
 
 app = Flask(__name__)
 
@@ -39,6 +40,25 @@ def get_tasks():
     return response
 
 
+@app.route('/getLinks', methods=['GET'])
+def get_links():
+    url = request.values['itemUrl']
+
+    page = requests.get(url)
+    tree = html.fromstring(page.content)
+    cart_href = tree.xpath("//a[@id='isCartBtn_btn']/@href")
+    buy_href = tree.xpath("//a[@id='binBtn_btn' and @role='button']/@href")
+
+    result = {
+        'cart': cart_href[0] if cart_href else '',
+        'buy': buy_href[0] if buy_href else '',
+    }
+
+    response = jsonify(result)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
 class Config:
     @classmethod
     def load(self):
@@ -46,6 +66,7 @@ class Config:
         config.sections()
         config.read('server.ini')
         self.AppName = config['DEFAULT']['AppName']
+
     @classmethod
     def getAppName(self):
         return self.AppName
