@@ -112,4 +112,8 @@ export class SearchListComponent implements OnInit {
   navigateTo(url: string) {
     window.open(url, "_blank");
   }
+
+  clearKeyword(column: number) {
+    this.keywords[column] = '';
+  }
 }

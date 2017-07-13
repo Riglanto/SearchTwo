@@ -8,7 +8,14 @@
         <!-- <select class="" id="shop" required [(ngModel)]="shop" name="shop">
           <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
         </select> -->
-        <input *ngFor="let column of searchColumnsList()" type="text" class="form-control" [(ngModel)]="keywords[column]" [name]="'keywords'+column" [placeholder]="'Keyword #' + (column+1)" required>
+
+        <div *ngFor="let column of searchColumnsList()" class="input-group">
+          <input type="text" class="form-control text-field" [(ngModel)]="keywords[column]" [name]="'keywords'+column" [placeholder]="'Keyword #' + (column+1)" required>
+          <!-- <fa class="input-group-addon fa-fw" name="car"></fa> -->
+          <!-- <i class="fa fa-camera-retro" style="position: relative;"></i> //wzgledem parenta display albo pisiton -->
+          <!-- <span class="fa fa-home fa-fw"></span> -->
+          <span *ngIf="keywords[column].length > 0" class="input-group-addon clear-text"><i (click)="clearKeyword(column)" class="fa fa-times-circle-o fa-fw"></i></span>
+        </div>
         <span class="input-group-btn">
           <button type="submit" class="btn btn-primary" [disabled]="!searchForm.form.valid"><fa class="fa-lg" name="search"></fa></button>
         </span>
@@ -41,7 +48,8 @@
   </ul>
 </div>
 <span *ngIf="!hasSearched" class="text-center">
-  <p>Enter keywords for items you are looking for and hit Search!</p>
+  <p></p>
+  <p>Enter keywords for items you are looking for and hit  <fa class="fa-fw" name="search"></fa></p>
   <p style="margin: 0;" (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer;">here</b> to search for 3 items!</p>
 </span>
 

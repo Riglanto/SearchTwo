@@ -24,6 +24,18 @@
   margin: 10px;
 }
 
+.text-field {
+  border-right: 0;
+  padding-right: 0;
+}
+
+.clear-text{
+  background: white;
+  color: #464a4c;
+  width: 25px;
+  padding: 0;
+}
+
 .item {
   height: 16vh;
   border: 1.5px solid white;
