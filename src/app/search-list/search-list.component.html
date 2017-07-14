@@ -1,14 +1,12 @@
 <div class="row">
   <div id="left" class="col-sm hidden-md-down">
-    left
   </div>
-  <div id="center" class="col-xs-12 col-lg-8">
+  <div id="search-bar" class="col-xs-12 col-lg-8">
     <form #searchForm="ngForm" (ngSubmit)="search(); hasSearched=true;">
       <div class="input-group">
         <!-- <select class="" id="shop" required [(ngModel)]="shop" name="shop">
           <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
         </select> -->
-
         <div *ngFor="let column of searchColumnsList()" class="input-group text-field-group">
           <input type="text" class="form-control text-field" [(ngModel)]="keywords[column]" [name]="'keywords'+column" required [placeholder]="isInputFocused[column] ? '' : 'Keyword #' + (column+1)" (focus)="isInputFocused[column] = true" (blur)="isInputFocused[column] = false">
           <i *ngIf="keywords[column].length > 0" (click)="clearKeyword(column)" class="fa fa-times-circle-o fa-fw clear-text"></i>
@@ -23,7 +21,6 @@
     </form>
   </div>
   <div id="right" class="col-sm hidden-md-down">
-    right
   </div>
 </div>
 
@@ -44,13 +41,25 @@
     </li>
   </ul>
 </div>
-<span *ngIf="!hasSearched" class="text-center">
-  <p></p>
-  <p>Enter keywords for items you are looking for and hit  <fa class="fa-fw" name="search"></fa></p>
-  <p style="margin: 0;" (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer;">here</b> to search for 3 items!</p>
-</span>
+<div *ngIf="!hasSearched" class="text-center">
+  <!-- <p></p>
+  <p>Enter keywords for items you are looking for and hit
+    <fa class="fa-fw" name="search"></fa>
+  </p>
+  <p style="margin: 0;" (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer;">here</b> to search for 3 items!</p> -->
+  <div class="card-columns">
+    <div class="card card-inverse card-primary p-3 text-center">
+      <blockquote class="card-blockquote">
+        <p>Enter keywords for items you are looking for and hit
+          <fa class="fa-fw" name="search"></fa>
+        </p>
+        <p style="margin: 0;" (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer;">here</b> to search for 3 items!</p>
+      </blockquote>
+    </div>
+  </div>
+</div>
 
-<div *ngIf="hasSearched" class="hidden-sm-up" id="results-area">
+<div *ngIf="hasSearched" class="mobile-results hidden-sm-up" id="mobile-results">
   <div *ngFor="let column of searchColumnsList()" class="card">
     <div class="card-header results-header" role="tab">
       <h6 class="mb-0">
@@ -61,7 +70,7 @@
     </div>
     <div [id]="'collapse' + keywords[column]" class="hscrollcollapse show" role="tabpanel">
       <div class="container-fluid hscroll">
-        <div class="row row-wrapper flex-row flex-nowrap">
+        <div class="row mobile-row row-wrapper flex-row flex-nowrap">
           <div *ngFor="let item of items[column]" class="card card-wrapper" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
             <div class="card-img card-img-wrapper d-inline-flex" [style.background-image]="getBgImageStyle(item)">
             </div>

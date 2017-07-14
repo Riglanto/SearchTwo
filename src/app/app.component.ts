@@ -8,7 +8,7 @@ import { SharedService }			from './shared.service';
 })
 
 export class AppComponent {
-  title: string = 'Rad app works!';
+  title: string = 'Search two';
 
   constructor(public sharedService: SharedService) {
   }

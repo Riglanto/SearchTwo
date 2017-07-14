@@ -61,7 +61,7 @@ export class SearchListComponent implements OnInit {
     }
     this.labels = this.keywords.slice(0);
     setTimeout(function() {
-      const element = document.querySelector("#results-area");
+      const element = document.querySelector("#mobile-results");
       if (element) {
         element.scrollIntoView();
       }

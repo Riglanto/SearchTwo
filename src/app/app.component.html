@@ -1,18 +1,19 @@
 <div *ngIf="sharedService.loading" class="overlay"></div>
-<div class="container-fluid">
-  <header class="row">
-    <h3>Searchtwo</h3>
-  </header>
-  <main>
-    <app-search-list></app-search-list>
-  </main>
-  <footer class="row">
-    <a href="searchlist#header">Go to header</a>
-  </footer>
-</div>
+<nav class="navbar navbar-inverse bg-primary" id="header">
+  <a class="navbar-brand" href="#">
+    <img src="/assets/image.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    {{title}}
+  </a>
+</nav>
+<main class="container-fluid">
+  <app-search-list></app-search-list>
+</main>
+<nav class="navbar navbar-inverse bg-primary">
+  <a class="navbar-brand" href="searchlist#header">Go to header</a>
+</nav>
 
 <div *ngIf="sharedService.alert.show" class="fixed-alert">
-  <div class="alert alert-success alert-dismissible fade" [class.show]="sharedService.alert.show" role="alert">
+  <div class="alert alert-warning alert-dismissible fade" [class.show]="sharedService.alert.show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>

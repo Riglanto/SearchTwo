@@ -8,21 +8,12 @@
   opacity: 0.5;
 }
 
-header {
-  border: 3px solid yellow;
+nav {
+  margin: 0;
 }
 
 main {
-  min-height: calc(100vh - 66px);
-}
-
-footer {
-  border: 3px solid yellow;
-}
-
-* {
-  padding: 0;
-  margin: 0;
+  min-height: calc(100vh - 108px);
 }
 
 .fixed-alert {
