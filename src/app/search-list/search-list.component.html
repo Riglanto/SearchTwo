@@ -35,7 +35,7 @@
         <p class="text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
         <div class="text-right">
           <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
-          <button type="button" (click)="$event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
+          <button type="button" (click)="addToCart(item); $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
         </div>
       </div>
       <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
@@ -69,7 +69,7 @@
               <h6 class="card-title">{{trimTitle(item.title)}}</h6>
               <p class="card-text text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
               <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
-              <button type="button" (click)="$event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
+              <button type="button" (click)="addToCart(item); $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
             </div>
           </div>
         </div>

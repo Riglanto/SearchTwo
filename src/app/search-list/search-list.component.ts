@@ -111,17 +111,25 @@ export class SearchListComponent implements OnInit {
     return text.length > 25 ? text.substring(0, 25) + "..." : text;
   }
 
-  navigateTo(url: string) {
-    window.open(url, "_blank");
-  }
-
   clearKeyword(column: number) {
     this.keywords[column] = '';
   }
 
-  addToCart(url: string) {
-    let cartButton = "isCartBtn_btn";
-    let cartLink = document.getElementById("cartButton").getAttribute("href");
-    this.navigateTo(cartLink);
+  addToCart(item: Item) {
+    console.log('addToCart');
+    this.searchListService.getLinks(item.viewItemURL).then(
+      page => {
+        console.log(page['cart']);
+        this.navigateTo(page['cart']);
+      }
+    );
+  }
+
+  navigateTo(url: string) {
+    console.log('navigatinTo');
+    var win = window.open(url, "_blank");
+    if (!win) {
+      this.sharedService.popAlert('Popup blocked', 'Here is the ', url);
+    }
   }
 }
