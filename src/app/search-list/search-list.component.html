@@ -4,9 +4,16 @@
   <div id="search-bar" class="col-xs-12 col-lg-8">
     <form #searchForm="ngForm" (ngSubmit)="search()">
       <div class="input-group">
-        <!-- <select class="" id="shop" required [(ngModel)]="shop" name="shop">
-          <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
-        </select> -->
+
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img [src]="'assets/'+selectedShop.split('.')[0]+'.ico'"/>
+                </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item select-shop-option" *ngFor="let shop of shops" (click)="selectedShop=shop;"><img [src]="'assets/'+shop.split('.')[0]+'.ico'"/> {{shop}}</a>
+          </div>
+        </div>
+
         <div *ngFor="let column of searchColumnsList()" class="input-group text-field-group">
           <input type="text" class="form-control text-field" [(ngModel)]="keywords[column]" [name]="'keywords'+column" required [placeholder]="isInputFocused[column] ? '' : 'Keyword #' + (column+1)" (focus)="isInputFocused[column] = true" (blur)="isInputFocused[column] = false">
           <i *ngIf="keywords[column].length > 0" (click)="clearKeyword(column)" class="fa fa-times-circle-o fa-fw clear-text"></i>
@@ -44,7 +51,7 @@
 <div *ngIf="!hasSearched" class="text-center">
   <div class="card-columns">
     <div *ngFor="let promo of promos; let i=index">
-      <div *ngIf="i == promos.length/2" class="card card-inverse card-primary text-center" style="margin: 10px;">
+      <div *ngIf="i == promos.length/2" class="card card-inverse card-primary text-center" style="margin: 10px; cursor: pointer">
         <blockquote class="card-blockquote" (click)="searchColumns = searchColumns == 2 ? 3 : 2">
           <p>Enter keywords for items you are looking for and hit
             <fa class="fa-fw" name="search"></fa>

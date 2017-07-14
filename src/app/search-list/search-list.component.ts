@@ -15,7 +15,7 @@ import { SharedService } from './../shared.service';
 export class SearchListComponent implements OnInit {
 
   searchColumns: number = 3;
-  shop: string;
+  selectedShop: string;
   items: Item[][] = new Array(this.searchColumns);
   sellers: string[] = new Array(this.searchColumns);
   keywords: string[] = new Array(this.searchColumns);
@@ -34,7 +34,7 @@ export class SearchListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shop = this.shops[0];
+    this.selectedShop = this.shops[0];
     this.keywords[0] = "watch";
     this.keywords[1] = "Spiderman";
     if (this.searchColumns > 2)

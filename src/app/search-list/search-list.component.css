@@ -124,3 +124,7 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
+.select-shop-option {
+  cursor: pointer;
+}
