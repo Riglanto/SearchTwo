@@ -5,6 +5,7 @@ import json
 
 class ServerTest(unittest.TestCase):
     def setUp(self):
+        server.app.debug = True
         server.app.testing = True
         self.app = server.app.test_client()
 
@@ -21,10 +22,15 @@ class ServerTest(unittest.TestCase):
         response = self.app.get('/promos')
         data = json.loads(response.data)
 
-        self.assertEqual(len(data['promos']), 4)
+        self.assertEqual(len(data['promos']), 6)
         for el in data['promos']:
             self.assertEqual(len(el['keywords']), 2)
             self.assertIn('imageUrl', el)
+
+    def test_incorrect_shop(self):
+        response = self.app.get('/items?shop=google.com')
+        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.messsage, 'Shop not available')
 
 
 if __name__ == '__main__':

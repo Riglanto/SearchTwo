@@ -51,7 +51,7 @@ export class SearchListComponent implements OnInit {
   searchItemsInColumn(column: number, seller = ''): void {
     this.sharedService.loading = true;
     this.items[column].length = 0;
-    this.searchListService.getItems(this.keywords[column], seller).then(
+    this.searchListService.getItems(this.keywords[column], seller,this.selectedShop).then(
       items => {
         this.items[column] = items;
         this.sharedService.loading = false;

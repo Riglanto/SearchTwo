@@ -12,13 +12,15 @@ export class SearchListService {
 
   constructor(private http: Http) { }
 
-  getItems(keyword: string, seller: string): Promise<Item[]> {
+  getItems(keyword: string, seller: string, shop: string): Promise<Item[]> {
     console.log('getItems' + keyword + seller);
     var url = this.localUrl + 'items?';
     if (keyword != '')
       url += 'keyword=' + keyword + '&';
     if (seller != '')
       url += 'seller=' + seller;
+    if (shop != '')
+      url += 'shop=' + shop;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json() as Item[])
