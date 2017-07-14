@@ -10,6 +10,15 @@
   margin: 0 -15px;
 }
 
+.promo-card {
+  margin: 5px;
+  background-color: white;
+}
+
+.promo-card:hover {
+  cursor: pointer;
+}
+
 .media-body {
   height: 16vh;
   margin: 10px;
@@ -101,7 +110,7 @@
   background-position: center;
 }
 
-.card-title {
+.mobile-card-title {
   white-space: initial;
   overflow: hidden;
   height: 2.2em;

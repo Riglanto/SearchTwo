@@ -17,6 +17,15 @@ class ServerTest(unittest.TestCase):
         self.assertRegex(data['cart'], '^https?:\/\/')
         self.assertRegex(data['buy'], '^https?:\/\/')
 
+    def test_get_promos(self):
+        response = self.app.get('/promos')
+        data = json.loads(response.data)
+
+        self.assertEqual(len(data['promos']), 4)
+        for el in data['promos']:
+            self.assertEqual(len(el['keywords']), 2)
+            self.assertIn('imageUrl', el)
+
 
 if __name__ == '__main__':
     unittest.main()

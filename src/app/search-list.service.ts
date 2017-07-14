@@ -34,6 +34,14 @@ export class SearchListService {
       .catch(this.fakeService);
   }
 
+  getPromos(): Promise<any[]> {
+    var url = this.localUrl + 'promos';
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json()['promos'] as any[])
+      .catch(this.fakeService);
+  }
+
   private fakeService(error: any) {
     console.log('fakeService');
     var items = [];

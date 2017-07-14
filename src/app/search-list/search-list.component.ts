@@ -23,6 +23,7 @@ export class SearchListComponent implements OnInit {
   lastSelected: Item[] = new Array(this.searchColumns);
   isInputFocused: boolean[] = new Array(this.searchColumns);
   hasSearched: boolean = false;
+  promos: any[];
 
   shops = [
     'ebay.de',
@@ -42,6 +43,9 @@ export class SearchListComponent implements OnInit {
       this.items[i] = [];
     this.isInputFocused.fill(false);
     this.searchColumns = 2;
+    this.searchListService.getPromos().then(
+      promos => this.promos = promos
+    );
   }
 
   searchItemsInColumn(column: number, seller = ''): void {
@@ -60,6 +64,7 @@ export class SearchListComponent implements OnInit {
       this.searchItemsInColumn(i);
     }
     this.labels = this.keywords.slice(0);
+    this.hasSearched = true;
     setTimeout(function() {
       const element = document.querySelector("#mobile-results");
       if (element) {
@@ -116,20 +121,24 @@ export class SearchListComponent implements OnInit {
   }
 
   addToCart(item: Item) {
-    console.log('addToCart');
     this.searchListService.getLinks(item.viewItemURL).then(
       page => {
-        console.log(page['cart']);
         this.navigateTo(page['cart']);
       }
     );
   }
 
   navigateTo(url: string) {
-    console.log('navigatinTo');
     var win = window.open(url, "_blank");
     if (!win) {
       this.sharedService.popAlert('Popup blocked', 'Here is the ', url);
     }
+  }
+
+  searchPromo(promo) {
+    this.searchColumns = promo.keywords.length;
+    for (let i = 0; i < this.searchColumns; i++)
+      this.keywords[i] = promo.keywords[i];
+    this.search();
   }
 }

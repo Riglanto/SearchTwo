@@ -59,6 +59,39 @@ def get_links():
     return response
 
 
+@app.route('/promos', methods=['GET'])
+def get_promos():
+    result = {'promos': [
+        {
+            'keywords': ['playstation 4', 'xbox 360'],
+            'imageUrl': 'assets/consoles.jpg'
+        },
+        {
+            'keywords': ['iphone 5', 'samsung galaxy 2'],
+            'imageUrl': 'assets/phones.jpg'
+        },
+        {
+            'keywords': ['necklace', 'earrings'],
+            'imageUrl': 'assets/jewellery.jpg'
+        },
+        {
+            'keywords': ['lego', 'plush'],
+            'imageUrl': 'assets/toys.jpg'
+        },
+        {
+            'keywords': ['games', 'music'],
+            'imageUrl': 'assets/games.jpg'
+        },
+        {
+            'keywords': ['shirt', 'socks'],
+            'imageUrl': 'assets/wardrobe.jpg'
+        }
+    ]}
+    response = jsonify(result)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
 class Config:
     @classmethod
     def load(self):

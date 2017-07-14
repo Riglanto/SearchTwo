@@ -2,7 +2,7 @@
   <div id="left" class="col-sm hidden-md-down">
   </div>
   <div id="search-bar" class="col-xs-12 col-lg-8">
-    <form #searchForm="ngForm" (ngSubmit)="search(); hasSearched=true;">
+    <form #searchForm="ngForm" (ngSubmit)="search()">
       <div class="input-group">
         <!-- <select class="" id="shop" required [(ngModel)]="shop" name="shop">
           <option *ngFor="let shop of shops" [value]="shop">{{shop}}</option>
@@ -42,19 +42,22 @@
   </ul>
 </div>
 <div *ngIf="!hasSearched" class="text-center">
-  <!-- <p></p>
-  <p>Enter keywords for items you are looking for and hit
-    <fa class="fa-fw" name="search"></fa>
-  </p>
-  <p style="margin: 0;" (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer;">here</b> to search for 3 items!</p> -->
   <div class="card-columns">
-    <div class="card card-inverse card-primary p-3 text-center">
-      <blockquote class="card-blockquote">
-        <p>Enter keywords for items you are looking for and hit
-          <fa class="fa-fw" name="search"></fa>
-        </p>
-        <p style="margin: 0;" (click)="searchColumns = searchColumns == 2 ? 3 : 2">Click <b style="cursor:pointer;">here</b> to search for 3 items!</p>
-      </blockquote>
+    <div *ngFor="let promo of promos; let i=index">
+      <div *ngIf="i == promos.length/2" class="card card-inverse card-primary text-center" style="margin: 10px;">
+        <blockquote class="card-blockquote" (click)="searchColumns = searchColumns == 2 ? 3 : 2">
+          <p>Enter keywords for items you are looking for and hit
+            <fa class="fa-fw" name="search"></fa>
+          </p>
+          <p style="margin: 0;">Click <b>here</b> to search for 3 items!</p>
+        </blockquote>
+      </div>
+      <div class="card promo-card card-outline-primary" (click)="searchPromo(promo)">
+        <img class="card-img-top img-fluid" src="{{promo.imageUrl}}" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title"><span class="badge badge-pill badge-primary">{{promo.keywords[0]}}</span> <span class="badge badge-pill badge-success">{{promo.keywords[1]}}</span></h4>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -75,7 +78,7 @@
             <div class="card-img card-img-wrapper d-inline-flex" [style.background-image]="getBgImageStyle(item)">
             </div>
             <div class="card-block">
-              <h6 class="card-title">{{trimTitle(item.title)}}</h6>
+              <h6 class="mobile-card-title">{{trimTitle(item.title)}}</h6>
               <p class="card-text text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
               <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
               <button type="button" (click)="addToCart(item); $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
