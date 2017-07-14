@@ -50,8 +50,8 @@ def get_links():
     buy_href = tree.xpath("//a[@id='binBtn_btn' and @role='button']/@href")
 
     result = {
-        'cart': cart_href[0] if cart_href else '',
-        'buy': buy_href[0] if buy_href else '',
+        'cart': cart_href[0] if cart_href else url,
+        'buy': buy_href[0] if buy_href else url
     }
 
     response = jsonify(result)

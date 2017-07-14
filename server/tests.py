@@ -15,7 +15,7 @@ class ServerTest(unittest.TestCase):
         data = json.loads(response.data)
         self.assertEqual(len(data), 2)
         self.assertRegex(data['cart'], '^https?:\/\/')
-        self.assertEqual(data['buy'], '^https?:\/\/')
+        self.assertRegex(data['buy'], '^https?:\/\/')
 
 
 if __name__ == '__main__':
