@@ -39,7 +39,7 @@ def add_headers(response):
 def get_tasks():
     shop = request.values['shop']
     if shop != 'ebay.de':
-        raise ServerException('Shop not available')
+        raise ServerException('Shop ({}) not available'.format(shop))
     url = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1' \
           '?OPERATION-NAME=findItemsAdvanced' \
           '&SECURITY-APPNAME=' + Config.getAppName() + \

@@ -28,11 +28,12 @@ class ServerTest(unittest.TestCase):
             self.assertIn('imageUrl', el)
 
     def test_incorrect_shop(self):
-        response = self.app.get('/items?shop=google.com')
+        shop = 'google.com'
+        response = self.app.get('/items?shop=' + shop)
         data = json.loads(response.data)
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(data['message'], 'Shop not available')
+        self.assertEqual(data['message'], 'Shop ({}) not available'.format(shop))
 
 
 if __name__ == '__main__':

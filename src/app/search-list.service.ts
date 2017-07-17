@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import './rxjs-operators';
 
 import { Item } from './item';
+import { SharedService } from './shared.service';
 
 @Injectable()
 export class SearchListService {
@@ -24,7 +25,7 @@ export class SearchListService {
     return this.http.get(url)
       .toPromise()
       .then(response => response.json() as Item[])
-      .catch(this.fakeService);
+      .catch(this.handleError);
   }
 
   getLinks(itemUrl: string): Promise<any> {
@@ -33,7 +34,7 @@ export class SearchListService {
     return this.http.get(url)
       .toPromise()
       .then(response => response.json())
-      .catch(this.fakeService);
+      .catch(this.handleError);
   }
 
   getPromos(): Promise<any[]> {
@@ -41,7 +42,7 @@ export class SearchListService {
     return this.http.get(url)
       .toPromise()
       .then(response => response.json()['promos'] as any[])
-      .catch(this.fakeService);
+      .catch(this.handleError);
   }
 
   private fakeService(error: any) {
@@ -58,6 +59,6 @@ export class SearchListService {
   }
 
   private handleError(error: any) {
-    Promise.resolve();
+    return Promise.reject(error.json().message || error);
   }
 }

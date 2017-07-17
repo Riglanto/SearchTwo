@@ -37,8 +37,7 @@ export class SearchListComponent implements OnInit {
     this.selectedShop = this.shops[0];
     this.keywords[0] = "watch";
     this.keywords[1] = "Spiderman";
-    if (this.searchColumns > 2)
-      this.keywords[2] = "Superman";
+    this.keywords[2] = "Superman";
     for (let i = 0; i < this.searchColumns; i++)
       this.items[i] = [];
     this.isInputFocused.fill(false);
@@ -51,12 +50,16 @@ export class SearchListComponent implements OnInit {
   searchItemsInColumn(column: number, seller = ''): void {
     this.sharedService.loading = true;
     this.items[column].length = 0;
-    this.searchListService.getItems(this.keywords[column], seller,this.selectedShop).then(
+    this.searchListService.getItems(this.keywords[column], seller, this.selectedShop).then(
       items => {
         this.items[column] = items;
         this.sharedService.loading = false;
+        this.hasSearched = true;
       }
-    );
+    ).catch(error => {
+      this.sharedService.popAlert('Error', error)
+      this.hasSearched = false;
+    });
   }
 
   search(): void {
@@ -64,7 +67,6 @@ export class SearchListComponent implements OnInit {
       this.searchItemsInColumn(i);
     }
     this.labels = this.keywords.slice(0);
-    this.hasSearched = true;
     setTimeout(function() {
       const element = document.querySelector("#mobile-results");
       if (element) {
