@@ -29,8 +29,10 @@ class ServerTest(unittest.TestCase):
 
     def test_incorrect_shop(self):
         response = self.app.get('/items?shop=google.com')
-        self.assertEqual(response.status_code, 204)
-        self.assertEqual(response.messsage, 'Shop not available')
+        data = json.loads(response.data)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data['message'], 'Shop not available')
 
 
 if __name__ == '__main__':

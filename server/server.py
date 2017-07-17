@@ -28,16 +28,18 @@ def handle_invalid_usage(error):
     response.status_code = error.status_code
     return response
 
+
 @app.after_request
 def add_headers(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+
 @app.route('/items', methods=['GET'])
 def get_tasks():
     shop = request.values['shop']
     if shop != 'ebay.de':
-        raise ServerException('Shop not available', status_code=204)
+        raise ServerException('Shop not available')
     url = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1' \
           '?OPERATION-NAME=findItemsAdvanced' \
           '&SECURITY-APPNAME=' + Config.getAppName() + \
