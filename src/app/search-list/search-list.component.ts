@@ -57,7 +57,8 @@ export class SearchListComponent implements OnInit {
         this.hasSearched = true;
       }
     ).catch(error => {
-      this.sharedService.popAlert('Error', error)
+      this.sharedService.popAlert('Error', error);
+      this.sharedService.loading = false;
       this.hasSearched = false;
     });
   }

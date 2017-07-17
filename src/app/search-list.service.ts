@@ -19,7 +19,7 @@ export class SearchListService {
     if (keyword != '')
       url += 'keyword=' + keyword + '&';
     if (seller != '')
-      url += 'seller=' + seller;
+      url += 'seller=' + seller + '&';
     if (shop != '')
       url += 'shop=' + shop;
     return this.http.get(url)
