@@ -122,12 +122,12 @@ def get_promos():
 
 
 class Config:
-    @classmethod
+    @staticmethod
     def load(cls):
-        config = configparser.ConfigParser()
-        config.sections()
-        config.read('server.ini')
-        cls.APP_NAME = config['DEFAULT']['AppName']
+        cfg = configparser.ConfigParser()
+        cfg.sections()
+        cfg.read('server.ini')
+        Config.APP_NAME = cfg['DEFAULT']['AppName']
 
 
 if __name__ == '__main__':
