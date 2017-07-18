@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SharedService {
-  loading = false;
+  loading = 0;
   alert = {
     title: '',
     text: '',

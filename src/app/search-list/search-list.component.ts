@@ -48,17 +48,17 @@ export class SearchListComponent implements OnInit {
   }
 
   searchItemsInColumn(column: number, seller = ''): void {
-    this.sharedService.loading = true;
+    this.sharedService.loading += 1;
     this.items[column].length = 0;
     this.searchListService.getItems(this.keywords[column], seller, this.selectedShop).then(
       items => {
         this.items[column] = items;
-        this.sharedService.loading = false;
+        this.sharedService.loading -= 1;
         this.hasSearched = true;
       }
     ).catch(error => {
       this.sharedService.popAlert('Error', error);
-      this.sharedService.loading = false;
+      this.sharedService.loading -= 1;
       this.hasSearched = false;
     });
   }
@@ -68,12 +68,20 @@ export class SearchListComponent implements OnInit {
       this.searchItemsInColumn(i);
     }
     this.labels = this.keywords.slice(0);
-    setTimeout(function() {
-      const element = document.querySelector("#mobile-results");
-      if (element) {
-        element.scrollIntoView();
+    this.waitAndScroll()
+  }
+
+  waitAndScroll() {
+    setTimeout(() => {
+      if (!this.sharedService.loading) {
+        const element = document.querySelector("#mobile-results");
+        if (element) {
+          element.scrollIntoView();
+        }
+      } else {
+        this.waitAndScroll();
       }
-    }, 750);
+    }, 250);
   }
 
   onSelectItemInColumn(column: number, item: Item) {
