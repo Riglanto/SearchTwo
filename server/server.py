@@ -42,7 +42,7 @@ def get_tasks():
         raise ServerException('Shop ({}) not available'.format(shop))
     url = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1' \
           '?OPERATION-NAME=findItemsAdvanced' \
-          '&SECURITY-APPNAME=' + Config.getAppName() + \
+          '&SECURITY-APPNAME=' + Config.APP_NAME + \
           '&RESPONSE-DATA-FORMAT=JSON' \
           '&REST-PAYLOAD' \
           '&outputSelector(0)=SellerInfo' \
@@ -123,15 +123,11 @@ def get_promos():
 
 class Config:
     @classmethod
-    def load(self):
+    def load(cls):
         config = configparser.ConfigParser()
         config.sections()
         config.read('server.ini')
-        self.AppName = config['DEFAULT']['AppName']
-
-    @classmethod
-    def getAppName(self):
-        return self.AppName
+        cls.APP_NAME = config['DEFAULT']['AppName']
 
 
 if __name__ == '__main__':
