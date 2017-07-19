@@ -17,6 +17,7 @@
 
 .promo-card:hover {
   cursor: pointer;
+  border-width: 2px;
 }
 
 .media-body {
@@ -43,6 +44,14 @@
   right: 3px;
 }
 
+.search-column-header {
+  background: #0275d8;
+  border: solid 2px #dbeeff;
+  color: white;
+  margin: 1px;
+  padding: 5px;
+}
+
 .item {
   height: 16vh;
   border: 1.5px solid white;
@@ -61,18 +70,13 @@
 }
 
 .item:hover {
-  border-color: #555555;
+  border-color: #0275d8;
+  background: #dbeeff;
   cursor: pointer;
-  /*right: 10px;
-  bottom: 10px;*/
 }
 
 .selected, .selected:hover {
-  border: 3px dashed;
-}
-
-.item:active {
-  border: 2px solid #green;
+  border: 2px dashed #0275d8 ;
 }
 
 .thumbnail-wrapper {

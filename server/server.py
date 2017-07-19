@@ -65,6 +65,10 @@ def get_tasks():
             'currency': element.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('@currencyId'),
             'galleryURL': element.get('galleryURL'),
             'viewItemURL': element.get('viewItemURL')[0],
+            'info': {
+                'country' : element.get('country')[0],
+                'location' : element.get('location')[0]
+            }
         })
 
     response = jsonify(parsed)
@@ -123,7 +127,7 @@ def get_promos():
 
 class Config:
     @staticmethod
-    def load(cls):
+    def load():
         cfg = configparser.ConfigParser()
         cfg.sections()
         cfg.read('server.ini')

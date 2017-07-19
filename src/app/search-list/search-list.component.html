@@ -33,13 +33,14 @@
 
 <div *ngIf="hasSearched" class="row hidden-xs-down justify-content-md-center">
   <ul *ngFor="let column of searchColumnsList()" class="list-unstyled resultsColumn col-12 col-sm-6 col-lg-4">
+    <div class="search-column-header"><h5>{{keywords[column]}} <span *ngIf="sellers[column]">(sold by {{sellers[column]}})</span></h5></div>
     <li *ngFor="let item of items[column]" class="item media align-items-center" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
       <div class="media-body">
         <h6 class="item-title">{{item.title}}</h6>
         <p class="text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
         <div class="text-right">
-          <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
-          <button type="button" (click)="addToCart(item); $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
+          <button type="button" (click)="showInfo(item.info); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
+          <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
         </div>
       </div>
       <div class="thumbnail-wrapper img-thumbnail d-inline-flex">
@@ -87,8 +88,8 @@
             <div class="card-block">
               <h6 class="mobile-card-title">{{trimTitle(item.title)}}</h6>
               <p class="card-text text-primary font-weight-bold text-right">{{item.currency}} {{item.price}}</p>
-              <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
-              <button type="button" (click)="addToCart(item); $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
+              <button type="button" (click)="showInfo(item.info); $event.stopPropagation()" class="btn btn-outline-info btn-sm"><fa class="fa-lg" name="info-circle"></fa></button>
+              <button type="button" (click)="navigateTo(item.viewItemURL); $event.stopPropagation()" class="btn btn-outline-success btn-sm"><fa class="fa-lg" name="shopping-cart"></fa></button>
             </div>
           </div>
         </div>

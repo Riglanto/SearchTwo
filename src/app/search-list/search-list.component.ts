@@ -100,8 +100,10 @@ export class SearchListComponent implements OnInit {
       this.lastSelected[column] = null;
     }
     for (let i = 0; i < this.searchColumns; i++) {
-      if (i !== column)
+      if (i !== column) {
         this.searchItemsInColumn(i, seller);
+        this.sellers[i] = seller;
+      }
     }
     item.selected = !item.selected;
   }
@@ -144,6 +146,10 @@ export class SearchListComponent implements OnInit {
     if (!win) {
       this.sharedService.popAlert('Popup blocked', 'Here is the ', url);
     }
+  }
+
+  showInfo(info) {
+    console.log(info);
   }
 
   searchPromo(promo) {
