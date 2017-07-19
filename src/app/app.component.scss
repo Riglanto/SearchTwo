@@ -23,8 +23,11 @@
 }
 
 @keyframes blinker {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
+
 
 nav {
   margin: 0;
@@ -41,8 +44,7 @@ main {
   left: 0px;
   width: 100%;
   z-index: 10;
-}
-
-.fixed-alert>div {
-  padding: 20px 12px;
+  > div {
+    padding: 20px 12px;
+  }
 }

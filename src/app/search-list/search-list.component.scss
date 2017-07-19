@@ -13,11 +13,10 @@
 .promo-card {
   margin: 5px;
   background-color: white;
-}
-
-.promo-card:hover {
-  cursor: pointer;
-  border-width: 2px;
+  &:hover {
+    cursor: pointer;
+    border-width: 2px;
+  }
 }
 
 .media-body {
@@ -63,20 +62,22 @@
   position: relative;
   padding: 10px;
   z-index: 10;
+  &:hover {
+    border-color: #0275d8;
+    background: #dbeeff;
+    cursor: pointer;
+  }
 }
 
 .item-title {
   height: 3.3em;
 }
 
-.item:hover {
-  border-color: #0275d8;
-  background: #dbeeff;
-  cursor: pointer;
-}
-
-.selected, .selected:hover {
-  border: 2px dashed #0275d8 ;
+.selected {
+  border: 2px dashed #0275d8;
+  &:hover {
+    border: 2px dashed #0275d8;
+  }
 }
 
 .thumbnail-wrapper {
