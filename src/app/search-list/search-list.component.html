@@ -32,7 +32,7 @@
 </div>
 
 <div *ngIf="hasSearched" class="row hidden-xs-down justify-content-md-center">
-  <ul *ngFor="let column of searchColumnsList()" class="list-unstyled resultsColumn col-12 col-sm-6 col-lg-4">
+  <ul *ngFor="let column of searchColumnsList()" class="list-unstyled results-column col-12 col-sm-6 col-lg-4">
     <div class="search-column-header"><h5>{{keywords[column]}} <span *ngIf="sellers[column]">(sold by {{sellers[column]}})</span></h5></div>
     <li *ngFor="let item of items[column]" class="item media align-items-center" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
       <div class="media-body">
@@ -49,6 +49,7 @@
     </li>
   </ul>
 </div>
+
 <div *ngIf="!hasSearched" class="text-center">
   <div class="card-columns">
     <div *ngFor="let promo of promos; let i=index">
@@ -70,7 +71,7 @@
   </div>
 </div>
 
-<div *ngIf="hasSearched" class="mobile-results hidden-sm-up" id="mobile-results">
+<div *ngIf="hasSearched" class="hidden-sm-up" id="mobile-results">
   <div *ngFor="let column of searchColumnsList()" class="card">
     <div class="card-header results-header" role="tab">
       <h6 class="mb-0">

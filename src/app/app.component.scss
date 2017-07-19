@@ -21,13 +21,11 @@
 #exclamation {
   animation: blinker 1s linear infinite;
 }
-
 @keyframes blinker {
   50% {
     opacity: 0;
   }
 }
-
 
 nav {
   margin: 0;
@@ -40,10 +38,11 @@ main {
 
 .fixed-alert {
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   z-index: 10;
+
   > div {
     padding: 20px 12px;
   }
