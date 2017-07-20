@@ -10,11 +10,25 @@ class ServerTest(unittest.TestCase):
         self.app = server.app.test_client()
         server.Config.load()
 
-    def test_get_items(self):
+    def test_get_items_ebay(self):
         response = self.app.get('/items?keyword=batman&shop=ebay.de')
         data = json.loads(response.data)
 
         self.assertEqual(len(data), 10)
+        first = data[0]
+        self.assertIn('itemId', first)
+        self.assertIn('title', first)
+        self.assertIn('seller', first)
+        self.assertIn('price', first)
+        self.assertIn('currency', first)
+        self.assertIn('galleryURL', first)
+        self.assertIn('viewItemURL', first)
+
+    def test_get_items_allegro(self):
+        response = self.app.get('/items?keyword=buty&shop=allegro.pl')
+        data = json.loads(response.data)
+
+        self.assertEqual(len(data), 33)
         first = data[0]
         self.assertIn('itemId', first)
         self.assertIn('title', first)

@@ -2,8 +2,11 @@ import requests
 from flask import Flask, jsonify, make_response, request, abort
 import configparser
 from lxml import html
+from zeep import Client, helpers
 
 app = Flask(__name__)
+
+allegro_url = 'https://webapi.allegro.pl.webapisandbox.pl/service.php?wsdl'
 
 
 class ServerException(Exception):
@@ -36,10 +39,56 @@ def add_headers(response):
 
 
 @app.route('/items', methods=['GET'])
-def get_tasks():
+def get_items():
+    if 'keyword' in request.values:
+        keyword = request.values['keyword']
+    seller = ''
+    if 'seller' in request.values:
+        seller = request.values['seller']
+
     shop = request.values['shop']
-    if shop != 'ebay.de':
+    if shop == 'ebay.de':
+        result = get_items_ebay(keyword, seller)
+    elif shop == 'allegro.pl':
+        result = get_items_allegro(keyword, seller)
+    else:
         raise ServerException('Shop ({}) not available'.format(shop))
+    return jsonify(result)
+
+
+def get_items_allegro(keyword, seller):
+    client = Client(allegro_url)
+
+    factory = client.type_factory('ns0')
+
+    arr = factory.ArrayOfString(keyword)
+    options = factory.FilterOptionsType('search', arr)
+    filters = factory.ArrayOfFilteroptionstype(options)
+
+    result = client.service.doGetItemsList('s0cb80e7', 1, filters)
+    data = helpers.serialize_object(result)['itemsList']['item']
+
+    parsed = []
+    for el in data:
+        photos = el.get('photosInfo')
+        photos = photos.get('item')[0].get('photoUrl') if photos else ''
+
+        parsed.append(build_item(
+            el.get('itemId'),
+            el.get('itemTitle'),
+            el.get('sellerInfo').get('userLogin'),
+            el.get('priceInfo').get('item')[0].get('priceValue'),
+            'PLN',
+            photos,
+            el.get('itemId'),
+            el.get('sellerInfo').get('countryId'),
+            el.get('sellerInfo').get('countryId')
+        ))
+
+    return parsed
+
+
+def get_items_ebay(keyword, seller):
     url = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1' \
           '?OPERATION-NAME=findItemsAdvanced' \
           '&SECURITY-APPNAME=' + Config.APP_NAME + \
@@ -48,31 +97,46 @@ def get_tasks():
           '&outputSelector(0)=SellerInfo' \
           '&paginationInput.entriesPerPage=10'
 
-    if 'keyword' in request.values:
-        url += '&keywords=' + request.values['keyword']
-    if 'seller' in request.values:
-        url += '&itemFilter(0).name=Seller&itemFilter(0).value=' + request.values['seller']
+    if keyword:
+        url += '&keywords=' + keyword
+    if seller:
+        url += '&itemFilter(0).name=Seller&itemFilter(0).value=' + seller
+
     r = requests.get(url)
     data = r.json()['findItemsAdvancedResponse'][0]['searchResult'][0]
     data = data['item'] if 'item' in data else []
-    parsed = []
-    for element in data:
-        parsed.append({
-            'itemId': element.get('itemId')[0],
-            'title': element.get('title')[0],
-            'seller': element.get('sellerInfo', {})[0].get('sellerUserName')[0],
-            'price': element.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('__value__'),
-            'currency': element.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('@currencyId'),
-            'galleryURL': element.get('galleryURL'),
-            'viewItemURL': element.get('viewItemURL')[0],
-            'info': {
-                'country' : element.get('country')[0],
-                'location' : element.get('location')[0]
-            }
-        })
 
-    response = jsonify(parsed)
-    return response
+    parsed = []
+    for el in data:
+        parsed.append(build_item(
+            el.get('itemId')[0],
+            el.get('title')[0],
+            el.get('sellerInfo', {})[0].get('sellerUserName')[0],
+            el.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('__value__'),
+            el.get('sellingStatus', {})[0].get('currentPrice', {})[0].get('@currencyId'),
+            el.get('galleryURL'),
+            el.get('viewItemURL')[0],
+            el.get('country')[0],
+            el.get('location')[0]
+        ))
+
+    return parsed
+
+
+def build_item(id, title, seller, price, currency, gallery_url, view_url, country, location):
+    return {
+        'itemId': id,
+        'title': title,
+        'seller': seller,
+        'price': price,
+        'currency': currency,
+        'galleryURL': gallery_url,
+        'viewItemURL': view_url,
+        'info': {
+            'country': country,
+            'location': location
+        }
+    }
 
 
 @app.route('/getLinks', methods=['GET'])

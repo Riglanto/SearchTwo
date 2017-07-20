@@ -82,7 +82,7 @@
     </div>
     <div [id]="'collapse' + keywords[column]" class="hscrollcollapse show" role="tabpanel">
       <div class="container-fluid hscroll">
-        <div class="row mobile-row row-wrapper flex-row flex-nowrap">
+        <div class="row row-wrapper flex-row flex-nowrap">
           <div *ngFor="let item of items[column]" class="card card-wrapper" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
             <div class="card-img card-img-wrapper d-inline-flex" [style.background-image]="getBgImageStyle(item)">
             </div>
