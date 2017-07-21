@@ -4,6 +4,8 @@ import json
 
 
 class ServerTest(unittest.TestCase):
+    keyword_zero = 'qqqqqqqqqq'
+
     def setUp(self):
         server.app.debug = True
         server.app.testing = True
@@ -24,6 +26,11 @@ class ServerTest(unittest.TestCase):
         self.assertIn('galleryURL', first)
         self.assertIn('viewItemURL', first)
 
+    def test_get_zero_items_ebay(self):
+        response = self.app.get('/items?keyword={}&shop=ebay.de'.format(self.keyword_zero))
+        data = json.loads(response.data)
+        self.assertEqual(len(data), 0)
+
     def test_get_items_allegro(self):
         response = self.app.get('/items?keyword=buty&shop=allegro.pl')
         data = json.loads(response.data)
@@ -37,6 +44,11 @@ class ServerTest(unittest.TestCase):
         self.assertIn('currency', first)
         self.assertIn('galleryURL', first)
         self.assertIn('viewItemURL', first)
+
+    def test_get_zero_items_allegro(self):
+        response = self.app.get('/items?keyword={}&shop=allegro.pl'.format(self.keyword_zero))
+        data = json.loads(response.data)
+        self.assertEqual(len(data), 0)
 
     def test_get_links(self):
         test_url = 'http://www.ebay.com/itm/Google-Home-Chromecast-Video-2nd-Gen-1080p-Bundle-for-99-99-/222571438996'

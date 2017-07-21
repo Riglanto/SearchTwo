@@ -61,6 +61,10 @@
     .media-body {
       height: 16vh;
       margin: 10px;
+
+      * {
+        margin: 0;
+      }
     }
 
     .thumbnail-wrapper {

@@ -27,7 +27,8 @@ export class SearchListComponent implements OnInit {
 
   shops = [
     'ebay.de',
-    'amazon.de'
+    'amazon.de',
+    'allegro.pl'
   ];
 
   constructor(private sharedService: SharedService, private searchListService: SearchListService) {

@@ -65,11 +65,13 @@ def get_items_allegro(keyword, seller):
     options = factory.FilterOptionsType('search', arr)
     filters = factory.ArrayOfFilteroptionstype(options)
 
-    result = client.service.doGetItemsList('s0cb80e7', 1, filters)
-    data = helpers.serialize_object(result)['itemsList']['item']
+    result = client.service.doGetItemsList(Config.ALLEGRO_APP_NAME, 1, filters)
+    data = helpers.serialize_object(result)['itemsList']
+    if not data:
+        return []
 
     parsed = []
-    for el in data:
+    for el in data['item']:
         photos = el.get('photosInfo')
         photos = photos.get('item')[0].get('photoUrl') if photos else ''
 
@@ -91,7 +93,7 @@ def get_items_allegro(keyword, seller):
 def get_items_ebay(keyword, seller):
     url = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1' \
           '?OPERATION-NAME=findItemsAdvanced' \
-          '&SECURITY-APPNAME=' + Config.APP_NAME + \
+          '&SECURITY-APPNAME=' + Config.EBAY_APP_NAME + \
           '&RESPONSE-DATA-FORMAT=JSON' \
           '&REST-PAYLOAD' \
           '&outputSelector(0)=SellerInfo' \
@@ -195,7 +197,8 @@ class Config:
         cfg = configparser.ConfigParser()
         cfg.sections()
         cfg.read('server.ini')
-        Config.APP_NAME = cfg['DEFAULT']['AppName']
+        Config.EBAY_APP_NAME = cfg['DEFAULT']['EBAY_APP_NAME']
+        Config.ALLEGRO_APP_NAME = cfg['DEFAULT']['ALLEGRO_APP_NAME']
 
 
 if __name__ == '__main__':
