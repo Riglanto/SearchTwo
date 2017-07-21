@@ -13,18 +13,20 @@ class ServerTest(unittest.TestCase):
         server.Config.load()
 
     def test_get_items_ebay(self):
-        response = self.app.get('/items?keyword=batman&shop=ebay.de')
-        data = json.loads(response.data)
+        keyword = 'iphone'
+        for country in ['us', 'gb', 'de']:
+            response = self.app.get('/items?keyword={}&shop=ebay.{}'.format(keyword, country))
+            data = json.loads(response.data)
 
-        self.assertEqual(len(data), 10)
-        first = data[0]
-        self.assertIn('itemId', first)
-        self.assertIn('title', first)
-        self.assertIn('seller', first)
-        self.assertIn('price', first)
-        self.assertIn('currency', first)
-        self.assertIn('galleryURL', first)
-        self.assertIn('viewItemURL', first)
+            self.assertEqual(len(data), 10, 'No {} found in ebay.{}'.format(keyword, country))
+            first = data[0]
+            self.assertIn('itemId', first)
+            self.assertIn('title', first)
+            self.assertIn('seller', first)
+            self.assertIn('price', first)
+            self.assertIn('currency', first)
+            self.assertIn('galleryURL', first)
+            self.assertIn('viewItemURL', first)
 
     def test_get_zero_items_ebay(self):
         response = self.app.get('/items?keyword={}&shop=ebay.de'.format(self.keyword_zero))

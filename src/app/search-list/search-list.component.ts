@@ -26,6 +26,8 @@ export class SearchListComponent implements OnInit {
   promos: any[];
 
   shops = [
+    'ebay.us',
+    'ebay.gb',
     'ebay.de',
     'amazon.de',
     'allegro.pl'

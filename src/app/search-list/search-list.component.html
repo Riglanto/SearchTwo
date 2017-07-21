@@ -33,7 +33,9 @@
 
 <div *ngIf="hasSearched" class="row hidden-xs-down justify-content-md-center">
   <ul *ngFor="let column of searchColumnsList()" class="list-unstyled results-column col-12 col-sm-6 col-lg-4">
-    <div class="search-column-header"><h5>{{keywords[column]}} <span *ngIf="sellers[column]">(sold by {{sellers[column]}})</span></h5></div>
+    <div class="search-column-header">
+      <h5>{{keywords[column]}} <span *ngIf="sellers[column]">(sold by {{sellers[column]}})</span></h5>
+    </div>
     <li *ngFor="let item of items[column]" class="item media align-items-center" (click)="onSelectItemInColumn(column, item)" [class.selected]="item.selected">
       <div class="media-body">
         <h6 class="item-title">{{item.title}}</h6>

@@ -46,9 +46,11 @@ def get_items():
     if 'seller' in request.values:
         seller = request.values['seller']
 
-    shop = request.values['shop']
-    if shop == 'ebay.de':
-        result = get_items_ebay(keyword, seller)
+    shop = request.values['shop'].split('.')
+    country = shop[1]
+    shop = shop[0]
+    if shop == 'ebay':
+        result = get_items_ebay(keyword, seller, country)
     elif shop == 'allegro.pl':
         result = get_items_allegro(keyword, seller)
     else:
@@ -73,7 +75,7 @@ def get_items_allegro(keyword, seller):
     parsed = []
     for el in data['item']:
         photos = el.get('photosInfo')
-        photos = photos.get('item')[0].get('photoUrl') if photos else ''
+        photos = photos.get('item')[0].get('photoUrl') if photos else None
 
         parsed.append(build_item(
             el.get('itemId'),
@@ -90,9 +92,10 @@ def get_items_allegro(keyword, seller):
     return parsed
 
 
-def get_items_ebay(keyword, seller):
+def get_items_ebay(keyword, seller, country):
     url = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1' \
           '?OPERATION-NAME=findItemsAdvanced' \
+          '&GLOBAL-ID=EBAY-' + country.upper() + \
           '&SECURITY-APPNAME=' + Config.EBAY_APP_NAME + \
           '&RESPONSE-DATA-FORMAT=JSON' \
           '&REST-PAYLOAD' \
