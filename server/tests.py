@@ -34,10 +34,10 @@ class ServerTest(unittest.TestCase):
         self.assertEqual(len(data), 0)
 
     def test_get_items_allegro(self):
-        response = self.app.get('/items?keyword=buty&shop=allegro.pl')
+        response = self.app.get('/items?keyword=obuwie&shop=allegro.pl')
         data = json.loads(response.data)
 
-        self.assertEqual(len(data), 33)
+        self.assertEqual(len(data), 12)
         first = data[0]
         self.assertIn('itemId', first)
         self.assertIn('title', first)
@@ -76,7 +76,7 @@ class ServerTest(unittest.TestCase):
         data = json.loads(response.data)
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(data['message'], 'Shop ({}) not available'.format(shop))
+        self.assertEqual(data['message'], 'Shop ({}) not available'.format(shop.split('.')[0]))
 
 
 if __name__ == '__main__':

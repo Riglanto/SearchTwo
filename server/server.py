@@ -51,7 +51,7 @@ def get_items():
     shop = shop[0]
     if shop == 'ebay':
         result = get_items_ebay(keyword, seller, country)
-    elif shop == 'allegro.pl':
+    elif shop == 'allegro':
         result = get_items_allegro(keyword, seller)
     else:
         raise ServerException('Shop ({}) not available'.format(shop))
