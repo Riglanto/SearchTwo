@@ -10,7 +10,6 @@ class ServerTest(unittest.TestCase):
         server.app.debug = True
         server.app.testing = True
         self.app = server.app.test_client()
-        server.Config.load()
 
     def test_get_items_ebay(self):
         keyword = 'iphone'

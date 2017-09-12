@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, jsonify, make_response, request, abort
+from flask import Flask, jsonify, make_response, request, abort, g
 import configparser
 from lxml import html
 from zeep import Client, helpers
@@ -30,6 +30,12 @@ def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
     return response
+
+
+@app.before_request
+def load_config():
+    if not hasattr(g, 'cfg'):
+        g.cfg = Config()
 
 
 @app.after_request
@@ -67,7 +73,7 @@ def get_items_allegro(keyword, seller):
     options = factory.FilterOptionsType('search', arr)
     filters = factory.ArrayOfFilteroptionstype(options)
 
-    result = client.service.doGetItemsList(Config.ALLEGRO_APP_NAME, 1, filters)
+    result = client.service.doGetItemsList(g.cfg.ALLEGRO_APP_NAME, 1, filters)
     data = helpers.serialize_object(result)['itemsList']
     if not data:
         return []
@@ -96,7 +102,7 @@ def get_items_ebay(keyword, seller, country):
     url = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1' \
           '?OPERATION-NAME=findItemsAdvanced' \
           '&GLOBAL-ID=EBAY-' + country.upper() + \
-          '&SECURITY-APPNAME=' + Config.EBAY_APP_NAME + \
+          '&SECURITY-APPNAME=' + g.cfg.EBAY_APP_NAME + \
           '&RESPONSE-DATA-FORMAT=JSON' \
           '&REST-PAYLOAD' \
           '&outputSelector(0)=SellerInfo' \
@@ -195,16 +201,14 @@ def get_promos():
 
 
 class Config:
-    @staticmethod
-    def load():
+    def __init__(self):
         cfg = configparser.ConfigParser()
         cfg.sections()
         cfg.read('server.ini')
-        Config.EBAY_APP_NAME = cfg['DEFAULT']['EBAY_APP_NAME']
-        Config.ALLEGRO_APP_NAME = cfg['DEFAULT']['ALLEGRO_APP_NAME']
+        self.EBAY_APP_NAME = cfg['DEFAULT']['EBAY_APP_NAME']
+        self.ALLEGRO_APP_NAME = cfg['DEFAULT']['ALLEGRO_APP_NAME']
 
 
 if __name__ == '__main__':
     print('\n*** SERVER STARTED ***\n')
-    Config.load()
     app.run(debug=True)
